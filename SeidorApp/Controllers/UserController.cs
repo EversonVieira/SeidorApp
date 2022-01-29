@@ -26,11 +26,10 @@ namespace SeidorApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Response<long>> InsertUser(DTO_RegisterUser user)
+        public ActionResult<Response<long>> Insert(DTO_RegisterUser user)
         {
             try
             {
-                throw new Exception("teste");
                 return GetResponse(() => _userAdapter.Insert(user));
             }
             catch(Exception ex)
@@ -40,7 +39,7 @@ namespace SeidorApp.Controllers
         }
 
         [HttpPut]
-        public ActionResult<Response<bool>> UpdateUser(DTO_RegisterUser user)
+        public ActionResult<Response<bool>> Update(DTO_RegisterUser user)
         {
             try
             {

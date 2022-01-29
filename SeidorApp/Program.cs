@@ -50,5 +50,7 @@ void AddCoreServices(IServiceCollection services, IConfiguration configuration)
 void AddServices(IServiceCollection services, IConfiguration configuration)
 {
     services.AddScoped<UserBusiness>();
+    services.AddScoped<CpfBusiness>();
+    services.AddScoped<SessionBusiness>();
     services.AddScoped<UserAdapter>();
 }

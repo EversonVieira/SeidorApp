@@ -48,9 +48,6 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From User ";
                 using (DbCommand cmd =  base.CreateCommand(INSERT, parameters))
                 {
                     response.Data = ExecuteScalar<long>(cmd);
-                    /* Everything in the code is in english, but the messages could be in portuguese, since the application
-                       is based on Brazil stuff.
-                     */
                     response.AddSuccessMessage("001", "Usuário inserido com sucesso!");
                     response.StatusCode = HttpStatusCode.Created;
                 }
@@ -151,7 +148,7 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From User ";
         {
             User user = new User();
 
-            user.Id = reader["id"].IsNotNull() ? Convert.ToInt64(reader["Id"]):0;
+            user.Id = reader["Id"].IsNotNull() ? Convert.ToInt64(reader["Id"]):0;
             user.Name = reader["Name"].IsNotNull() ? reader["Name"].ToString():string.Empty;
             user.Email = reader["Email"].IsNotNull() ? reader["Email"].ToString():string.Empty;
 

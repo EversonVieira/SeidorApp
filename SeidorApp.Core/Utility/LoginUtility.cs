@@ -15,6 +15,10 @@ namespace SeidorApp.Core.Utility
             return EncryptProp(password);
         }
 
+        public static string EncryptSession(string userName, string userEmail)
+        {
+            return EncryptProp($"{userName}|{userEmail}|{DateTime.UtcNow}");
+        }
         private static string EncryptProp(string value)
         {
             StringBuilder sb = new StringBuilder();

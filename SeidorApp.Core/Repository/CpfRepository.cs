@@ -154,9 +154,9 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From Cpf ";
         {
             Cpf cpf = new Cpf();
 
-            cpf.Id = reader["id"].IsNotNull() ? Convert.ToInt64(reader["Id"]) : 0;
-            cpf.OwnerName = reader["Name"].IsNotNull() ? reader["Name"].ToString() : string.Empty;
-            cpf.Document = reader["Email"].IsNotNull() ? reader["Email"].ToString() : string.Empty;
+            cpf.Id = reader["Id"].IsNotNull() ? Convert.ToInt64(reader["Id"]) : 0;
+            cpf.OwnerName = reader["OwnerName"].IsNotNull() ? reader["OwnerName"].ToString() : string.Empty;
+            cpf.Document = reader["Document"].IsNotNull() ? reader["Document"].ToString() : string.Empty;
 
             base.FillBaseModel(reader, cpf);
 

@@ -78,7 +78,7 @@ namespace SeidorApp.Core.Business
             Request request = new Request();
             request.filters.Add(new Filter
             {
-                Target1 = "Id",
+                Target1 = nameof(User.Id),
                 Value1 = userId,
                 OperationType = FilterOperationType.Equals
             });
