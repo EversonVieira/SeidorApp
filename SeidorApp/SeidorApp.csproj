@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>931f5724-834b-478d-8539-ccc3630d4019</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\bin\**" />
+    <Content Remove="Controllers\bin\**" />
+    <EmbeddedResource Remove="Controllers\bin\**" />
+    <None Remove="Controllers\bin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SeidorApp.Core\SeidorApp.Core.csproj" />
+    <ProjectReference Include="..\SeidorCore\BaseCore.csproj" />
+  </ItemGroup>
+
+</Project>
