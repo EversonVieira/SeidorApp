@@ -1,9 +1,9 @@
 ﻿using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Logging;
-using SeidorCore.DataBase.Abstractions;
-using SeidorCore.DataBase.Factory;
-using SeidorCore.Extensions;
-using SeidorCore.Models;
+using BaseCore.DataBase.Abstractions;
+using BaseCore.DataBase.Factory;
+using BaseCore.Extensions;
+using BaseCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeidorCore.BaseRepository
+namespace BaseCore.BaseRepository
 {
     public class BaseRepository: Repository
     {

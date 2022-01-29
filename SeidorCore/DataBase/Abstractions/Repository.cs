@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using SeidorCore.DataBase.Factory;
-using SeidorCore.Models;
+using BaseCore.DataBase.Factory;
+using BaseCore.Models;
 
-namespace SeidorCore.DataBase.Abstractions
+namespace BaseCore.DataBase.Abstractions
 {
     public class Repository : IRepository
     {

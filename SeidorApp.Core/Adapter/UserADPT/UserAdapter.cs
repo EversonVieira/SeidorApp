@@ -2,7 +2,7 @@
 using SeidorApp.Core.Adapter.UserAdapter;
 using SeidorApp.Core.Business;
 using SeidorApp.Core.Utility;
-using SeidorCore.Models;
+using BaseCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BaseCore.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using SeidorApp.Core.Models;
 using SeidorApp.Core.Repository;
 using SeidorApp.Core.Utility;
-using SeidorCore.DataBase.Factory;
-using SeidorCore.Models;
+using BaseCore.DataBase.Factory;
+using BaseCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace SeidorApp.Core.Business
 {
-    public class SessionBusiness
+    public class SessionBusiness:IAuth
     {
         private readonly ILogger _logger;
         private readonly SessionRepository _sessionRepository;
@@ -28,7 +29,7 @@ namespace SeidorApp.Core.Business
             _sessionKey = httpContextAccessor.HttpContext.Request.Headers["Session"];
         }
 
-        public Response<string> DoLogin(User user)
+        public Response<string> DoLogin(IUser user)
         {
             Response<string> response = new Response<string>();
 

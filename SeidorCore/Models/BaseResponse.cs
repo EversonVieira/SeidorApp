@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeidorCore.Models
+namespace BaseCore.Models
 {
     public abstract class BaseResponse
     {

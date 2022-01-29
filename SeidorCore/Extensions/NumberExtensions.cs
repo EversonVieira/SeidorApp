@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeidorCore.Extensions
+namespace BaseCore.Extensions
 {
     public static class NumberExtensions
     {

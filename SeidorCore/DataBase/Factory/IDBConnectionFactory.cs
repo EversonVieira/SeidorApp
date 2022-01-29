@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace SeidorCore.DataBase.Factory
+namespace BaseCore.DataBase.Factory
 {
     public interface IDBConnectionFactory
     {

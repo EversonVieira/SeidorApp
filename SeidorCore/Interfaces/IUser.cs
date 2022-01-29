@@ -1,16 +1,15 @@
-﻿using BaseCore.Interfaces;
-using BaseCore.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeidorApp.Core.Models
+namespace BaseCore.Interfaces
 {
-    public class User:BaseModel, IUser
+    public interface IUser
     {
-        public string? Name { get; set; } 
+        public long Id { get; set; }
+        public string? Name { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
     }

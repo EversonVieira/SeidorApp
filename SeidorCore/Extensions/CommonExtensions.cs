@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeidorCore.Extensions
+namespace BaseCore.Extensions
 {
     public static class CommonExtensions
     {

@@ -1,9 +1,9 @@
-﻿using SeidorCore.Models;
+﻿using BaseCore.Models;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace SeidorCore.DataBase.Abstractions
+namespace BaseCore.DataBase.Abstractions
 {
     public interface IRepository
     {

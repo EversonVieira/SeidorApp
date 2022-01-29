@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Business\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="NewFolder\" />
   </ItemGroup>
 

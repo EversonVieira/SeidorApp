@@ -1,28 +1,43 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SeidorCore.Models;
+using BaseCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using BaseCore.Interfaces;
 
-namespace SeidorCore.ApiControllers
+namespace BaseCore.ApiControllers
 {
-    public class NDBaseController:ControllerBase
+    public class NDBaseController : ControllerBase
     {
         private readonly ILogger _logger;
-        public NDBaseController(ILogger<NDBaseController> logger)
+        private readonly IAuth _authService;
+        public NDBaseController(ILogger<NDBaseController> logger, IAuth AuthService)
         {
+            _authService = AuthService;
             _logger = logger;
         }
-        protected ActionResult<Response<T>> GetResponse<T>(Func<Response<T>> method)
+        protected ActionResult<Response<T>> GetResponse<T>(Func<Response<T>> method, bool requireAuthenticate = true)
         {
+            Response<T> response = new Response<T>();
+            if (requireAuthenticate)
+            {
+                Response<bool> authResponse = _authService.ValidateSession();
+                if (authResponse.HasAnyMessages)
+                {
+                    response.Merge(authResponse);
+                    return response;
+                }
+                if (!authResponse.Data) return response;
+            }
+
             Task<Response<T>> task = new Task<Response<T>>(method);
             task.RunSynchronously();
 
-            Response<T> response = task.Result;
+            response = task.Result;
 
             return response.StatusCode switch
             {
@@ -32,12 +47,25 @@ namespace SeidorCore.ApiControllers
             };
         }
 
-        protected ActionResult<ListResponse<T>> GetListResponse<T>(Func<ListResponse<T>> method)
+        protected ActionResult<ListResponse<T>> GetListResponse<T>(Func<ListResponse<T>> method, bool requireAuthenticate = true)
         {
+            ListResponse<T> response = new ListResponse<T>();
+
+            if (requireAuthenticate)
+            {
+                Response<bool> authResponse = _authService.ValidateSession();
+                if (authResponse.HasAnyMessages)
+                {
+                    response.Merge(authResponse);
+                    return response;
+                }
+                if (!authResponse.Data) return response;
+            }
+
             Task<ListResponse<T>> task = new Task<ListResponse<T>>(method);
             task.RunSynchronously();
 
-            ListResponse<T> response = task.Result;
+            response = task.Result;
 
             return response.StatusCode switch
             {

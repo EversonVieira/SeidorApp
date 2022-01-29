@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 
-namespace SeidorCore.Models
+namespace BaseCore.Models
 {
     public class BaseRequest
     {

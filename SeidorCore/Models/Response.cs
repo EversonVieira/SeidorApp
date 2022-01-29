@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeidorCore.Models
+namespace BaseCore.Models
 {
     public class Response<T>:BaseResponse
     {

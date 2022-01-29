@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using SeidorApp.Core.Models;
-using SeidorCore.BaseRepository;
-using SeidorCore.DataBase.Factory;
-using SeidorCore.Extensions;
-using SeidorCore.Models;
+using BaseCore.BaseRepository;
+using BaseCore.DataBase.Factory;
+using BaseCore.Extensions;
+using BaseCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;

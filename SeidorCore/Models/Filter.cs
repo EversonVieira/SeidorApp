@@ -1,4 +1,4 @@
-﻿namespace SeidorCore.Models
+﻿namespace BaseCore.Models
 {
     public class Filter
     {

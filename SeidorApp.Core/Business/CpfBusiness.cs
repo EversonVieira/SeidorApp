@@ -2,8 +2,8 @@
 using SeidorApp.Core.Models;
 using SeidorApp.Core.Repository;
 using SeidorApp.Core.Validators;
-using SeidorCore.DataBase.Factory;
-using SeidorCore.Models;
+using BaseCore.DataBase.Factory;
+using BaseCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

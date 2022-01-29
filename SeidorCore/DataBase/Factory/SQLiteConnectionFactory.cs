@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeidorCore.DataBase.Factory
+namespace BaseCore.DataBase.Factory
 {
     public class SQLiteConnectionFactory:IDBConnectionFactory
     {

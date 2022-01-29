@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using SeidorApp.Core.Models;
 using SeidorApp.Core.Repository;
-using SeidorCore.Extensions;
-using SeidorCore.Models;
+using BaseCore.Extensions;
+using BaseCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
