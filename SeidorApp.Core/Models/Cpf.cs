@@ -12,6 +12,5 @@ namespace SeidorApp.Core.Models
         public string? OwnerName { get; set; } 
         public string? Document { get; set; }
         public bool IsBlocked { get; set; }
-
     }
 }

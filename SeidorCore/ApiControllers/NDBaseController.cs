@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SeidorCore.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,11 @@ namespace SeidorCore.ApiControllers
 {
     public class NDBaseController:ControllerBase
     {
+        private readonly ILogger _logger;
+        public NDBaseController(ILogger<NDBaseController> logger)
+        {
+            _logger = logger;
+        }
         protected ActionResult<Response<T>> GetResponse<T>(Func<Response<T>> method)
         {
             Task<Response<T>> task = new Task<Response<T>>(method);
@@ -41,9 +47,9 @@ namespace SeidorCore.ApiControllers
             };
         }
 
-        protected ActionResult<Response<T>> GetErrorResponse<T>()
+        protected ActionResult<Response<T>> GetErrorResponse<T>(Exception ex)
         {
-
+            _logger.LogError(ex, ex.Message);
             return BadRequest(new Response<T>
             {
                 Messages = new()
@@ -52,7 +58,7 @@ namespace SeidorCore.ApiControllers
                         new()
                         {
                             Code = "900",
-                            Text = "Something went wrong",
+                            Text = "Algo deu errado. Contate o suporte",
                             MessageType = MessageType.FatalErrorException
                         }
                     }
@@ -60,8 +66,9 @@ namespace SeidorCore.ApiControllers
             });
         }
 
-        protected ActionResult<ListResponse<T>> GetErrorInquiryResponse<T>()
+        protected ActionResult<ListResponse<T>> GetErrorListResponse<T>(Exception ex)
         {
+            _logger.LogError(ex, ex.Message);
             return BadRequest(new ListResponse<T>
             {
                 Messages = new()
@@ -70,7 +77,7 @@ namespace SeidorCore.ApiControllers
                         new()
                         {
                             Code = "900",
-                            Text = "Something went wrong",
+                            Text = "Algo deu errado. Contato o suporte",
                             MessageType = MessageType.FatalErrorException
                         }
                     }

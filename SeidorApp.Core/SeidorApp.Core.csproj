@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Business\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SeidorCore\BaseCore.csproj" />
   </ItemGroup>
 

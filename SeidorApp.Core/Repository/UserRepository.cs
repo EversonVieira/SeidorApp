@@ -116,7 +116,7 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From User ";
             return response;
         }
 
-        public ListResponse<User> Get(Request request)
+        public ListResponse<User> FindByRequest(Request request)
         {
             ListResponse<User> response = new ListResponse<User>();
 
@@ -124,7 +124,7 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From User ";
             {
                 Dictionary<string, dynamic> parameters = base.RetrieveFilterParameters(request.filters);
                 string query = $"{SELECT}{RetrieveFilterWhereClause(request.filters)}";
-                using (DbCommand cmd = base.CreateCommand(DELETE, parameters))
+                using (DbCommand cmd = base.CreateCommand(SELECT, parameters))
                 {
                     using (var reader = base.ExecuteReader(cmd).Data)
                     {
@@ -137,7 +137,6 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From User ";
                     }
 
                     response.StatusCode = HttpStatusCode.OK;
-                    response.AddSuccessMessage("001", "Usuário removido com sucesso!");
                 }
             }
             catch (Exception ex)

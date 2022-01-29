@@ -17,7 +17,8 @@ $@"CREATE TABLE IF NOT EXISTS User(Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TE
         private const string CREATE_CPF =
 $@"CREATE TABLE IF NOT EXISTS Cpf(ID INTEGER PRIMARY KEY AUTOINCREMENT, OwnerName TEXT, IsBlocked INTEGER, CreatedBy TEXT, CreatedOn TEXT, ModifiedBy TEXT, ModifiedOn TEXT);";
 
-
+        private const string CREATE_SESSION =
+$@"CREATE TABLE IF NOT EXISTS Session(ID INTEGER PRIMARY KEY AUTOINCREMENT, UserId INTEGER, KEY TEXT, LastUse TEXT);";
         public static void ValidateIntegrityAndBuildDB(string fileName, string connectionString)
         {
             if (!File.Exists(fileName))
@@ -41,6 +42,9 @@ $@"CREATE TABLE IF NOT EXISTS Cpf(ID INTEGER PRIMARY KEY AUTOINCREMENT, OwnerNam
                 command.ExecuteNonQuery();
 
                 command.CommandText = CREATE_CPF;
+                command.ExecuteNonQuery();
+
+                command.CommandText = CREATE_SESSION;
                 command.ExecuteNonQuery();
             }
         }

@@ -1,3 +1,5 @@
+using SeidorApp.Core.Adapt;
+using SeidorApp.Core.Business;
 using SeidorApp.Core.DataBase;
 using SeidorCore.DataBase.Factory;
 
@@ -11,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 AddCoreServices(builder.Services, builder.Configuration);
-
+AddServices(builder.Services, builder.Configuration);
 
 
 var app = builder.Build();
@@ -41,6 +43,12 @@ void AddCoreServices(IServiceCollection services, IConfiguration configuration)
                            SetIsOriginAllowed((host) => true)));
 
     SqliteDataBaseIntegrityService.ValidateIntegrityAndBuildDB(configuration.GetValue<string>("SQLiteFilePath"), configuration.GetConnectionString("Default"));
-    services.AddSingleton<IDBConnectionFactory, SQLiteConnectionFactory>(x => new SQLiteConnectionFactory(configuration.GetConnectionString("Default")));
+    services.AddScoped<IDBConnectionFactory, SQLiteConnectionFactory>(x => new SQLiteConnectionFactory(configuration.GetConnectionString("Default")));
 
+}
+
+void AddServices(IServiceCollection services, IConfiguration configuration)
+{
+    services.AddScoped<UserBusiness>();
+    services.AddScoped<UserAdapter>();
 }
