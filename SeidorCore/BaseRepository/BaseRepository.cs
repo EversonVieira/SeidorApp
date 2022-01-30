@@ -73,7 +73,7 @@ namespace BaseCore.BaseRepository
                 }
                 else
                 {
-                    whereClause.Append(GetWhereSnippet(filter, true));
+                    whereClause.Append(GetWhereSnippet(filter, !filter.Equals(sortedFilters.Last())));
                 }
             }
 
@@ -95,7 +95,7 @@ namespace BaseCore.BaseRepository
                 }
             }
 
-            snippet = $"{filter.Target1} {filter.GetOperationType()} @{filter.Target1.TargetAsParameter()}";
+            snippet = $"{filter.Target1} {filter.GetOperationType()} @{filter.Target1.TargetAsParameter()} {(includeAggregate ? $"{filter.GetAggregateType()}":String.Empty)} ";
             return snippet;
         }
 
@@ -134,7 +134,7 @@ namespace BaseCore.BaseRepository
             returnData ??= new();
 
             returnData.CreatedBy = reader["CreatedBy"].ToString();
-            returnData.CreatedOn = Convert.ToDateTime(reader["CreatedBy"]);
+            returnData.CreatedOn = Convert.ToDateTime(reader["CreatedOn"]);
             returnData.ModifiedBy = reader["ModifiedBy"].ToString();
             returnData.ModifiedOn = Convert.ToDateTime(reader["ModifiedOn"]);
 

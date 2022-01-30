@@ -62,14 +62,14 @@ namespace SeidorApp.Core.Business
 
             if (!userResponse.Data.Any())
             {
-                response.AddValidationMessage("002", "Usuário não encontrado1");
+                response.AddValidationMessage("002", "Usuário não encontrado");
                 return response;
             }
 
             string sessionKey = LoginUtility.EncryptSession(user.Name, user.Email);
             Session session = new Session()
             {
-                UserId = user.Id,
+                UserId = userResponse.Data.First().Id,
                 Key =  sessionKey,
                 LastUse = DateTime.UtcNow
             };
@@ -96,9 +96,9 @@ namespace SeidorApp.Core.Business
             return response;
         }
 
-        public Response<bool> ValidateSession()
+        public Response<IUser> ValidateSession()
         {
-            Response<bool> response = new Response<bool>();
+            Response<IUser> response = new Response<IUser>();
 
             Request request = new Request();
             request.filters.Add(new Filter()
@@ -115,15 +115,36 @@ namespace SeidorApp.Core.Business
                 return response;
             }
 
-            if (!sessionResponse.Data.Any())
+            if (!sessionResponse.Data.Any() || sessionResponse.Data.First().LastUse.AddMinutes(15) < DateTime.UtcNow)
             {
-                response.Data = false;
-                response.AddValidationMessage("002", "A sessão é inválida. Faça login para continuar.");
+                response.AddValidationMessage("002", "A sua sessão é inválida ou expirou. Faça login para continuar.");
                 return response;
             }
 
+            request = new Request();
+            request.filters.Add(new Filter()
+            {
+                Target1 = nameof(IUser.Id),
+                Value1 = sessionResponse.Data.First().UserId,
+                OperationType = FilterOperationType.Equals
+            });
+
+            ListResponse<User> userResponse = _userRepository.FindByRequest(request);
+            if (userResponse.HasAnyMessages)
+            {
+                response.Merge(userResponse);
+                return response;
+            }
+
+            response.Data = userResponse.Data.First();
+
+            Response<bool> updateResponse = _sessionRepository.UpdateLastUse(_sessionKey);
+            if (updateResponse.HasAnyMessages)
+            {
+                response.Merge(updateResponse);
+            }
+
             CloseRepositories();
-            response.Data = true;
             return response;
         }
 

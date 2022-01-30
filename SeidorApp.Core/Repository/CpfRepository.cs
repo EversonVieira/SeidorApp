@@ -19,10 +19,10 @@ namespace SeidorApp.Core.Repository
         private readonly ILogger _logger;
 
         private const string INSERT =
-$@"INSERT INTO Cpf(Id,OwnerName,Document,{BaseModelColumns}) VALUES(@Id,@OwnerName,@Document,{BaseModelInsertsParameters}) SELECT last_insert_rowid()";
+$@"INSERT INTO Cpf(OwnerName,Document,{BaseModelColumns}) VALUES(,@OwnerName,@Document,{BaseModelInsertsParameters}); SELECT last_insert_rowid()";
 
         private const string UPDATE =
-$@"UPDATE Cpf SET Id = @Id, OwnerName = @OwnerName, Document = @Document, {BaseModelUpdate}";
+$@"UPDATE Cpf SET OwnerName = @OwnerName, Document = @Document, {BaseModelUpdate} Where Id = @Id";
 
         private const string DELETE =
 $@"DELETE FROM Cpf Where Id = @Id ";
@@ -82,7 +82,7 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From Cpf ";
                     ExecuteNonQuery(cmd);
                     response.Data = true;
                     response.StatusCode = HttpStatusCode.OK;
-                    response.AddSuccessMessage("001", "Usuário atualizado com sucesso!");
+                    response.AddSuccessMessage("001", "CPF atualizado com sucesso!");
                 }
             }
             catch (Exception ex)
@@ -107,7 +107,7 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From Cpf ";
                     ExecuteNonQuery(cmd);
                     response.Data = true;
                     response.StatusCode = HttpStatusCode.OK;
-                    response.AddSuccessMessage("001", "Usuário removido com sucesso!");
+                    response.AddSuccessMessage("001", "CPF removido com sucesso!");
                 }
             }
             catch (Exception ex)
@@ -139,7 +139,6 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From Cpf ";
                     }
 
                     response.StatusCode = HttpStatusCode.OK;
-                    response.AddSuccessMessage("001", "Usuário removido com sucesso!");
                 }
             }
             catch (Exception ex)

@@ -8,30 +8,31 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using BaseCore.Interfaces;
+using BaseCore.Extensions;
 
 namespace BaseCore.ApiControllers
 {
     public class NDBaseController : ControllerBase
     {
         private readonly ILogger _logger;
-        private readonly IAuth _authService;
+        protected readonly IAuth _authService;
         public NDBaseController(ILogger<NDBaseController> logger, IAuth AuthService)
         {
             _authService = AuthService;
             _logger = logger;
         }
-        protected ActionResult<Response<T>> GetResponse<T>(Func<Response<T>> method, bool requireAuthenticate = true)
+        protected ActionResult<Response<T>> GetResponse<T>(Func<Response<T>> method, bool requireAuthentication = true)
         {
             Response<T> response = new Response<T>();
-            if (requireAuthenticate)
+            if (requireAuthentication)
             {
-                Response<bool> authResponse = _authService.ValidateSession();
+                Response<IUser> authResponse = _authService.ValidateSession();
                 if (authResponse.HasAnyMessages)
                 {
                     response.Merge(authResponse);
                     return response;
                 }
-                if (!authResponse.Data) return response;
+                if (!authResponse.Data.IsNull() || authResponse.Data.Id == 0) return response;
             }
 
             Task<Response<T>> task = new Task<Response<T>>(method);
@@ -47,19 +48,19 @@ namespace BaseCore.ApiControllers
             };
         }
 
-        protected ActionResult<ListResponse<T>> GetListResponse<T>(Func<ListResponse<T>> method, bool requireAuthenticate = true)
+        protected ActionResult<ListResponse<T>> GetListResponse<T>(Func<ListResponse<T>> method, bool requireAuthentication = true)
         {
             ListResponse<T> response = new ListResponse<T>();
 
-            if (requireAuthenticate)
+            if (requireAuthentication)
             {
-                Response<bool> authResponse = _authService.ValidateSession();
+                Response<IUser> authResponse = _authService.ValidateSession();
                 if (authResponse.HasAnyMessages)
                 {
                     response.Merge(authResponse);
                     return response;
                 }
-                if (!authResponse.Data) return response;
+                if (!authResponse.Data.IsNull() || authResponse.Data.Id == 0) return response;
             }
 
             Task<ListResponse<T>> task = new Task<ListResponse<T>>(method);

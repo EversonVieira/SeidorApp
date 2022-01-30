@@ -31,7 +31,7 @@ namespace SeidorApp.Controllers
         {
             try
             {
-                return GetResponse(() => _userAdapter.Insert(user));
+                return GetResponse(() => _userAdapter.Insert(user), requireAuthentication: false);
             }
             catch(Exception ex)
             {

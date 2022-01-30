@@ -19,7 +19,7 @@ namespace SeidorApp.Core.Repository
         private readonly ILogger _logger;
 
         private const string INSERT =
-$@"INSERT INTO Session(UserId, Key, LastUse) VALUES(@UserId, @Key, @LastUse)";
+$@"INSERT INTO Session(UserId, Key, LastUse) VALUES(@UserId, @Key, @LastUse); SELECT last_insert_rowid()";
 
         private const string SELECT =
 $@"SELECT Id, UserId, Key, LastUse FROM Session";
@@ -68,9 +68,9 @@ $@"DELETE FROM Session WHERE Key = @Key";
             {
                 Dictionary<string, dynamic> parameters = base.RetrieveFilterParameters(request.filters);
                 string query = $"{SELECT}{RetrieveFilterWhereClause(request.filters)}";
-                using (DbCommand cmd = base.CreateCommand(SELECT, parameters))
+                using (DbCommand cmd = base.CreateCommand(query, parameters))
                 {
-                    using (var reader = base.ExecuteReader(cmd).Data)
+                    using (DbDataReader reader = base.ExecuteReader(cmd).Data)
                     {
                         response.Data = new List<Session>();
 
@@ -115,6 +115,32 @@ $@"DELETE FROM Session WHERE Key = @Key";
             return response;
         }
 
+        public Response<bool> UpdateLastUse(string key)
+        {
+            Response<bool> response = new Response<bool>();
+
+            try
+            {
+                Dictionary<string, dynamic> parameters = new Dictionary<string, dynamic>();
+                parameters.Add($"@{nameof(Session.LastUse)}", DateTime.UtcNow);
+                parameters.Add($"@{nameof(Session.Key)}", key);
+
+                using (DbCommand cmd = base.CreateCommand("UPDATE Session SET LastUse = @LastUse WHERE Key = @Key", parameters))
+                {
+                    ExecuteNonQuery(cmd);
+                    response.Data = true;
+                    response.StatusCode = HttpStatusCode.Created;
+                }
+            }
+            catch (Exception ex)
+            {
+                HandleWithException(response, ex, _logger);
+            }
+
+
+            return response;
+        }
+
         private Session FillSession(DbDataReader reader)
         {
             Session session = new Session();
@@ -122,7 +148,7 @@ $@"DELETE FROM Session WHERE Key = @Key";
             session.Id = reader["Id"].IsNotNull() ? Convert.ToInt64(reader["Id"]) : 0;
             session.UserId = reader["UserId"].IsNotNull() ? Convert.ToInt64(reader["UserId"]) : 0;
             session.Key = reader["Key"].IsNotNull() ? reader["Key"].ToString() : string.Empty;
-            session.LastUse = reader["LastUse"].IsNotNull() ? Convert.ToDateTime(reader["Email"]) : DateTime.MinValue;
+            session.LastUse = reader["LastUse"].IsNotNull() ? Convert.ToDateTime(reader["LastUse"]) : DateTime.MinValue;
 
             return session;
         }

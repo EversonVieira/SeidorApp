@@ -11,7 +11,8 @@ namespace BaseCore.Interfaces
     {
         public Response<string> DoLogin(IUser user);
         public Response<bool> DoLogout();
-        public Response<bool> ValidateSession();
+        public Response<IUser> ValidateSession();
+
        
     }
 }

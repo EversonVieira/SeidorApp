@@ -12,7 +12,7 @@ namespace SeidorApp.Core.DataBase
     {
 
         private const string CREATE_USER =
-$@"CREATE TABLE IF NOT EXISTS User(Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Password TEXT, CreatedBy TEXT, CreatedOn TEXT, ModifiedBy TEXT, ModifiedOn TEXT);";
+$@"CREATE TABLE IF NOT EXISTS User(Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Email TEXT, Password TEXT, CreatedBy TEXT, CreatedOn TEXT, ModifiedBy TEXT, ModifiedOn TEXT);";
 
         private const string CREATE_CPF =
 $@"CREATE TABLE IF NOT EXISTS Cpf(ID INTEGER PRIMARY KEY AUTOINCREMENT, OwnerName TEXT, IsBlocked INTEGER, CreatedBy TEXT, CreatedOn TEXT, ModifiedBy TEXT, ModifiedOn TEXT);";
@@ -21,9 +21,16 @@ $@"CREATE TABLE IF NOT EXISTS Cpf(ID INTEGER PRIMARY KEY AUTOINCREMENT, OwnerNam
 $@"CREATE TABLE IF NOT EXISTS Session(ID INTEGER PRIMARY KEY AUTOINCREMENT, UserId INTEGER, KEY TEXT, LastUse TEXT);";
         public static void ValidateIntegrityAndBuildDB(string fileName, string connectionString)
         {
-            if (!File.Exists(fileName))
-                File.Create(fileName);
-
+            FileInfo file = new FileInfo(fileName);
+            bool justWait = false;
+            while (!file.Exists)
+            {
+                if(!justWait)
+                    file.Create();
+                
+                justWait = true;
+            }
+            
 
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {

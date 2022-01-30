@@ -19,16 +19,16 @@ namespace SeidorApp.Core.Repository
         private readonly ILogger _logger;
 
         private const string INSERT =
-$@"INSERT INTO User(Id,Name,Password,{BaseModelColumns}) VALUES(@Id,@Name,@Password,{BaseModelInsertsParameters}) SELECT last_insert_rowid()";
+$@"INSERT INTO User(Name,Email,Password,{BaseModelColumns}) VALUES(@Name,@Email,@Password,{BaseModelInsertsParameters}); SELECT last_insert_rowid()";
 
         private const string UPDATE =
-$@"UPDATE User SET Id = @Id, Name = @Name, Password = @Password, {BaseModelUpdate}";
+$@"UPDATE User SET Name = @Name, Password = @Password, Email = @Email, {BaseModelUpdate}, Where Id = @Id";
 
         private const string DELETE =
 $@"DELETE FROM User Where Id = @Id ";
 
         private const string SELECT =
-$@"SELECT Id,Name,Password,{BaseModelColumns} From User ";
+$@"SELECT Id,Name,Email,Password,{BaseModelColumns} From User ";
         public UserRepository(IDBConnectionFactory connectionFactory, ILogger<UserRepository> logger):base(connectionFactory, logger)
         {
             _logger = logger;
@@ -41,6 +41,7 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From User ";
             try
             {
                 Dictionary<string, dynamic> parameters = new Dictionary<string, dynamic>();
+                parameters.Add($"@{nameof(User.Name)}", user.Name);
                 parameters.Add($"@{nameof(User.Email)}", user.Email);
                 parameters.Add($"@{nameof(User.Password)}", user.Password);
                 base.AddBaseModelParameters(parameters, user);
@@ -121,7 +122,7 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From User ";
             {
                 Dictionary<string, dynamic> parameters = base.RetrieveFilterParameters(request.filters);
                 string query = $"{SELECT}{RetrieveFilterWhereClause(request.filters)}";
-                using (DbCommand cmd = base.CreateCommand(SELECT, parameters))
+                using (DbCommand cmd = base.CreateCommand(query, parameters))
                 {
                     using (var reader = base.ExecuteReader(cmd).Data)
                     {
