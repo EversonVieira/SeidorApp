@@ -1,0 +1,16 @@
+div{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    height: 100%;
+    min-height: 70px;
+    max-height: 70px;
+    background-color: rgb(255, 153, 0);
+    label{
+        color: #fff;
+        margin: 0;
+        font-size: 50px;
+        font-weight: bolder;
+    }
+}

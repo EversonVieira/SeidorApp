@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BaseCore.Extensions;
 
 namespace SeidorApp.Core.Business
 {
@@ -100,6 +101,12 @@ namespace SeidorApp.Core.Business
         {
             Response<IUser> response = new Response<IUser>();
 
+            if (_sessionKey.IsNull())
+            {
+                response.AddValidationMessage("002", "A sua sessão é inválida ou expirou. Faça login para continuar.");
+                return response;
+            }
+
             Request request = new Request();
             request.filters.Add(new Filter()
             {
@@ -137,6 +144,7 @@ namespace SeidorApp.Core.Business
             }
 
             response.Data = userResponse.Data.First();
+            response.Data.Password = String.Empty;
 
             Response<bool> updateResponse = _sessionRepository.UpdateLastUse(_sessionKey);
             if (updateResponse.HasAnyMessages)

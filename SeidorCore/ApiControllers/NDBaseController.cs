@@ -32,7 +32,7 @@ namespace BaseCore.ApiControllers
                     response.Merge(authResponse);
                     return response;
                 }
-                if (!authResponse.Data.IsNull() || authResponse.Data.Id == 0) return response;
+                if (authResponse.Data.IsNull() || authResponse.Data.Id == 0) return response;
             }
 
             Task<Response<T>> task = new Task<Response<T>>(method);

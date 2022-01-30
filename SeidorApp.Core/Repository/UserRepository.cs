@@ -22,7 +22,7 @@ namespace SeidorApp.Core.Repository
 $@"INSERT INTO User(Name,Email,Password,{BaseModelColumns}) VALUES(@Name,@Email,@Password,{BaseModelInsertsParameters}); SELECT last_insert_rowid()";
 
         private const string UPDATE =
-$@"UPDATE User SET Name = @Name, Password = @Password, Email = @Email, {BaseModelUpdate}, Where Id = @Id";
+$@"UPDATE User SET Name = @Name, Password = @Password, Email = @Email, {BaseModelUpdate} Where Id = @Id";
 
         private const string DELETE =
 $@"DELETE FROM User Where Id = @Id ";
@@ -69,6 +69,7 @@ $@"SELECT Id,Name,Email,Password,{BaseModelColumns} From User ";
             {
                 Dictionary<string, dynamic> parameters = new Dictionary<string, dynamic>();
                 parameters.Add($"@{nameof(User.Id)}", user.Id);
+                parameters.Add($"@{nameof(User.Name)}", user.Name);
                 parameters.Add($"@{nameof(User.Email)}", user.Email);
                 parameters.Add($"@{nameof(User.Password)}", user.Password);
                 base.AddBaseModelParameters(parameters, user);

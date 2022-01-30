@@ -1,0 +1,167 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+* {
+  font-family: "DM Sans";
+}
+@font-face {
+  font-family: DM Sans;
+  src: url(assets/fonts/DM_Sans/DMSans-Regular.ttf);
+}
+
+@import 'app/Shared/Variables.scss';
+
+@import '~ngx-toastr/toastr.css';
+
+
+.btn-primary{
+  color:#fff;
+  background-color: $primary-color;
+  border-color: $primary-color;
+  box-shadow: none;
+  border-radius: 8px;
+  border-style: solid;
+  box-shadow: none !important;
+  outline: none !important;
+
+  &:focus{
+    color: #fff ;
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+  &:focus-visible{
+    color: #fff ;
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+  
+  &:hover{
+    background-color: #1570d1;
+    border-color: #1570d1;
+  }
+  &:disabled{
+    background-color: $primary-color;
+    border-color: $primary-color;
+    opacity: 40%;
+  }
+}
+
+.btn-secondary{
+    color:#fff;
+    background-color: $secondary-color;
+    border-color: $secondary-color;
+    box-shadow: none;
+    border-radius: 8px;
+    border-style: solid;
+    box-shadow: none !important;
+    outline: none !important;
+  
+    &:focus{
+      color: #fff ;
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+    }
+    &:focus-visible{
+      color: #fff ;
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+    }
+    
+    &:hover{
+      background-color: rgb(88, 97, 105);
+      border-color: rgb(88, 97, 105);
+    }
+
+    &:disabled{
+        background-color: $secondary-color;
+        border-color: $secondary-color;
+        opacity: 40%;
+    }
+   
+    
+  }
+.content-wrapper{
+    width: calc(100vw - 140px);
+    background-color: #fff;
+    max-height: calc(100vh - 105px);
+    min-height: calc(100vh - 105px);
+    overflow-y: scroll;
+    border: 1px #fff solid;
+    border-radius: $dd-container-border-radius;
+    margin: 15px;
+    padding: 10px;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.12), 0 -1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    max-height: calc(100% - 50px);
+    min-height: calc(100% - 50px);
+    border: 1px solid;
+    background-color: #fff;
+    color: #fff;
+    border-radius: $dd-container-border-radius !important;
+    border-top-right-radius: $dd-container-border-radius;
+    border-bottom-right-radius: $dd-container-border-radius;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background-color: #fff;
+    color: #fff;
+    border: 1px solid #fff;
+    border-top-right-radius: $dd-container-border-radius;
+    border-bottom-right-radius: $dd-container-border-radius;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: $dd-container-border-radius;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(42, 46, 52);
+    border-radius: $dd-container-border-radius;
+  }
+
+  table{
+    width: 100%;
+  }
+  th{
+    background-color: rgb(231, 239, 248);
+    border: 1px solid #666;
+    padding:10px;
+  }
+  td{
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #666;
+    padding:10px;
+  }
+  .modal-content{
+    border-radius: 8px;
+  }
+  .form-group{
+    width: 100%;
+    padding: 0 10px;
+    max-width: 500px;
+}
+  form{
+    width: 100%;
+    max-width: 1100px !important;
+    padding: 0 !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+
+  }
+
+  

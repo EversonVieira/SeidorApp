@@ -123,7 +123,7 @@ namespace BaseCore.BaseRepository
 
         public void HandleWithException(BaseResponse response, Exception ex, ILogger logger)
         {
-            string errorCode = DateTime.Now.ToString("YYYYMMdd hmn");
+            string errorCode = DateTime.Now.ToString("yyyyMMddhm");
             response.AddErrorMessage(errorCode, $"Um erro inesperado ocorreu, entre em contato com o suporte e informe o código: {errorCode}");
             logger.LogError(ex, $"A Exception has happen with error code: {errorCode} and Message: {ex.Message}");
         }

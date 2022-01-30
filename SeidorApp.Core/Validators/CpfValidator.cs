@@ -71,7 +71,7 @@ namespace SeidorApp.Core.Validators
 		private bool ValidateCpfMask(string cpf)
         {
 			//000.000.000-00
-			return cpf.Trim().Length == 15 &&
+			return cpf.Trim().Length == 14 &&
 				   cpf[3] == '.' &&
 				   cpf[7] == '.' &&
 				   cpf[11] == '-';

@@ -102,8 +102,9 @@ $@"DELETE FROM Session WHERE Key = @Key";
 
                 using (DbCommand cmd = base.CreateCommand(DELETE, parameters))
                 {
-                    response.Data = ExecuteScalar<bool>(cmd);
-                    response.StatusCode = HttpStatusCode.Created;
+                    ExecuteNonQuery(cmd);
+                    response.Data = true;
+                    response.StatusCode = HttpStatusCode.OK;
                 }
             }
             catch (Exception ex)

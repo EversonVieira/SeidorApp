@@ -10,8 +10,8 @@ namespace BaseCore.Models
     public abstract class BaseResponse
     {
         public HttpStatusCode StatusCode { get; set; }
-        public List<Message> Messages { get; set; } = new();
-        public bool ShowMessages { get; set; }
+        public List<Message> Messages { get; set; } 
+        public bool ShowMessages { get; set; } 
         public bool IsValid => !Messages.Exists(x => x.MessageType > MessageType.Success);
         public bool InError => Messages.Exists(x => x.MessageType >= MessageType.Error);
         public bool HasAnyMessages => Messages.Any();
@@ -24,6 +24,11 @@ namespace BaseCore.Models
         public bool HasExceptionMessages => Messages.Exists(x => x.MessageType == MessageType.Exception);
         public bool HasFatalErrorExceptionMessages => Messages.Exists(x => x.MessageType == MessageType.FatalErrorException);
 
+        public BaseResponse()
+        {
+            Messages = new List<Message>();
+            ShowMessages = true;
+        }
         public virtual void AddMessage(string code, string text, string? title, MessageType type, bool showMessage = true)
         {
             this.Messages.Add(new Message()

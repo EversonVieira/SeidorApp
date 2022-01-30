@@ -19,7 +19,7 @@ namespace SeidorApp.Core.Repository
         private readonly ILogger _logger;
 
         private const string INSERT =
-$@"INSERT INTO Cpf(OwnerName,Document,{BaseModelColumns}) VALUES(,@OwnerName,@Document,{BaseModelInsertsParameters}); SELECT last_insert_rowid()";
+$@"INSERT INTO Cpf(OwnerName,Document,IsBlocked,{BaseModelColumns}) VALUES(,@OwnerName,@Document,@IsBlocked,{BaseModelInsertsParameters}); SELECT last_insert_rowid()";
 
         private const string UPDATE =
 $@"UPDATE Cpf SET OwnerName = @OwnerName, Document = @Document, {BaseModelUpdate} Where Id = @Id";
@@ -45,6 +45,7 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From Cpf ";
                 Dictionary<string, dynamic> parameters = new Dictionary<string, dynamic>();
                 parameters.Add($"@{nameof(Cpf.OwnerName)}", cpf.OwnerName);
                 parameters.Add($"@{nameof(Cpf.Document)}", cpf.Document);
+                parameters.Add($"@{nameof(Cpf.IsBlocked)}", cpf.IsBlocked);
                 base.AddBaseModelParameters(parameters, cpf);
 
                 using (DbCommand cmd = base.CreateCommand(INSERT, parameters))

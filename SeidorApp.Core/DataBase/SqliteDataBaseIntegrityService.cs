@@ -15,7 +15,7 @@ namespace SeidorApp.Core.DataBase
 $@"CREATE TABLE IF NOT EXISTS User(Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Email TEXT, Password TEXT, CreatedBy TEXT, CreatedOn TEXT, ModifiedBy TEXT, ModifiedOn TEXT);";
 
         private const string CREATE_CPF =
-$@"CREATE TABLE IF NOT EXISTS Cpf(ID INTEGER PRIMARY KEY AUTOINCREMENT, OwnerName TEXT, IsBlocked INTEGER, CreatedBy TEXT, CreatedOn TEXT, ModifiedBy TEXT, ModifiedOn TEXT);";
+$@"CREATE TABLE IF NOT EXISTS Cpf(ID INTEGER PRIMARY KEY AUTOINCREMENT, OwnerName TEXT, Document TEXT, IsBlocked INTEGER, CreatedBy TEXT, CreatedOn TEXT, ModifiedBy TEXT, ModifiedOn TEXT);";
 
         private const string CREATE_SESSION =
 $@"CREATE TABLE IF NOT EXISTS Session(ID INTEGER PRIMARY KEY AUTOINCREMENT, UserId INTEGER, KEY TEXT, LastUse TEXT);";
