@@ -90,7 +90,7 @@ namespace BaseCore.BaseRepository
             {
                 if (filter.OperationType == FilterOperationType.Between)
                 {
-                    snippet = $"{filter.Target1} {filter.GetOperationType()} @{filter.Target1.TargetAsParameter()} AND @{filter.Target2.TargetAsParameter()}";
+                    snippet = $"{filter.Target1} {filter.GetOperationType()} @{filter.Target1.TargetAsParameter()} AND @{filter.Target2.TargetAsParameter()} ";
                     return snippet;
                 }
             }

@@ -29,7 +29,7 @@ namespace SeidorApp.Controllers
             {
                 return GetResponse(() => _cpfBusiness.Insert(cpf));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return GetErrorResponse<long>(ex);
             }
@@ -45,6 +45,32 @@ namespace SeidorApp.Controllers
             catch (Exception ex)
             {
                 return GetErrorResponse<bool>(ex);
+            }
+        }
+
+        [HttpGet("findByDocument")]
+        public ActionResult<ListResponse<Cpf>> FindByDocument([FromQuery] string document)
+        {
+            try
+            {
+                return GetListResponse(() => _cpfBusiness.FindByDocument(document));
+            }
+            catch (Exception ex)
+            {
+                return GetErrorListResponse<Cpf>(ex);
+            }
+        }
+
+        [HttpGet("findByBlockStatus")]
+        public ActionResult<ListResponse<Cpf>> FindByBlockStatus([FromQuery] bool isBlocked)
+        {
+            try
+            {
+                return GetListResponse(() => _cpfBusiness.FindByBlockStatus(isBlocked));
+            }
+            catch (Exception ex)
+            {
+                return GetErrorListResponse<Cpf>(ex);
             }
         }
     }

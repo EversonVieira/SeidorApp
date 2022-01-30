@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BaseCore.Extensions;
 
 namespace SeidorApp.Core.Business
 {
@@ -29,6 +30,11 @@ namespace SeidorApp.Core.Business
         public Response<long> Insert(User user)
         {
             Response<long> response = new Response<long>();
+            if (user.IsNull())
+            {
+                throw new InvalidOperationException("User não pode ser vazio");
+            }
+
             _validator.ValidateInsert(response, user);
 
             if (response.HasValidationMessages)
@@ -45,6 +51,11 @@ namespace SeidorApp.Core.Business
         public Response<bool> Update(User user)
         {
             Response<bool> response = new Response<bool>();
+            if (user.IsNull())
+            {
+                throw new InvalidOperationException("User não pode ser vazio");
+            }
+
             _validator.ValidateUpdate(response, user);
 
 
@@ -61,6 +72,10 @@ namespace SeidorApp.Core.Business
 
         public ListResponse<User> FindUserByRequest(Request request)
         {
+            if (request.IsNull())
+            {
+                throw new InvalidOperationException("User não pode ser vazio");
+            }
             return _repository.FindByRequest(request);
             _repository.CloseConnection();
 
@@ -71,7 +86,7 @@ namespace SeidorApp.Core.Business
             ListResponse<User> response = new ListResponse<User>();
             if(userId == 0)
             {
-                response.AddValidationMessage("003", "UserId não pode ser menor ou igual a 0.");
+                response.AddValidationMessage("003", "User não pode ser menor ou igual a 0.");
                 return response;
             }
 

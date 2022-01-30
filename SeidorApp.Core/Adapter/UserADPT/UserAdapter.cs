@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BaseCore.Extensions;
 
 namespace SeidorApp.Core.Adapt
 {
@@ -25,8 +26,12 @@ namespace SeidorApp.Core.Adapt
         public Response<long> Insert(DTO_RegisterUser user)
         {
             Response<long> response = new Response<long>();
+            if (user.IsNull())
+            {
+                throw new InvalidOperationException("Cpf não pode ser vazio");
+            }
 
-            if(user.Password != user.ConfirmPassword)
+            if (user.Password != user.ConfirmPassword)
             {
                 response.AddValidationMessage("003", "As senhas não são iguais.");
                 return response;
@@ -40,6 +45,10 @@ namespace SeidorApp.Core.Adapt
         public Response<bool> Update(DTO_RegisterUser user)
         {
             Response<bool> response = new Response<bool>();
+            if (user.IsNull())
+            {
+                throw new InvalidOperationException("Cpf não pode ser vazio");
+            }
 
             if (user.Password != user.ConfirmPassword)
             {

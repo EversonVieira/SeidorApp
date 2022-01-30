@@ -60,7 +60,7 @@ namespace BaseCore.ApiControllers
                     response.Merge(authResponse);
                     return response;
                 }
-                if (!authResponse.Data.IsNull() || authResponse.Data.Id == 0) return response;
+                if (authResponse.Data.IsNull() || authResponse.Data.Id == 0) return response;
             }
 
             Task<ListResponse<T>> task = new Task<ListResponse<T>>(method);

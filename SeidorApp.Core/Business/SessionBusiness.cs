@@ -33,6 +33,10 @@ namespace SeidorApp.Core.Business
         public Response<string> DoLogin(IUser user)
         {
             Response<string> response = new Response<string>();
+            if (user.IsNull())
+            {
+                throw new InvalidOperationException("Cpf não pode ser vazio");
+            }
 
             Request request = new Request();
             request.filters.AddRange(new List<Filter>()

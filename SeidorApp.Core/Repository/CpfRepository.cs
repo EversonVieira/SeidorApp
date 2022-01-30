@@ -19,7 +19,7 @@ namespace SeidorApp.Core.Repository
         private readonly ILogger _logger;
 
         private const string INSERT =
-$@"INSERT INTO Cpf(OwnerName,Document,IsBlocked,{BaseModelColumns}) VALUES(,@OwnerName,@Document,@IsBlocked,{BaseModelInsertsParameters}); SELECT last_insert_rowid()";
+$@"INSERT INTO Cpf(OwnerName,Document,IsBlocked,{BaseModelColumns}) VALUES(@OwnerName,@Document,@IsBlocked,{BaseModelInsertsParameters}); SELECT last_insert_rowid()";
 
         private const string UPDATE =
 $@"UPDATE Cpf SET OwnerName = @OwnerName, Document = @Document, {BaseModelUpdate} Where Id = @Id";
@@ -28,7 +28,7 @@ $@"UPDATE Cpf SET OwnerName = @OwnerName, Document = @Document, {BaseModelUpdate
 $@"DELETE FROM Cpf Where Id = @Id ";
 
         private const string SELECT =
-$@"SELECT Id,Name,Password,{BaseModelColumns} From Cpf ";
+$@"SELECT Id,OwnerName,Document,IsBlocked,{BaseModelColumns} From Cpf ";
 
 
         public CpfRepository(IDBConnectionFactory connectionFactory, ILogger<CpfRepository> logger) : base(connectionFactory, logger)
@@ -54,7 +54,7 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From Cpf ";
                     /* Everything in the code is in english, but the messages could be in portuguese, since the application
                        is based on Brazil stuff.
                      */
-                    response.AddSuccessMessage("001", "Usuário inserido com sucesso!");
+                    response.AddSuccessMessage("001", "CPF inserido com sucesso!");
                     response.StatusCode = HttpStatusCode.Created;
                 }
             }
@@ -127,7 +127,7 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From Cpf ";
             {
                 Dictionary<string, dynamic> parameters = base.RetrieveFilterParameters(request.filters);
                 string query = $"{SELECT}{RetrieveFilterWhereClause(request.filters)}";
-                using (DbCommand cmd = base.CreateCommand(SELECT, parameters))
+                using (DbCommand cmd = base.CreateCommand(query, parameters))
                 {
                     using (var reader = base.ExecuteReader(cmd).Data)
                     {
@@ -157,6 +157,7 @@ $@"SELECT Id,Name,Password,{BaseModelColumns} From Cpf ";
             cpf.Id = reader["Id"].IsNotNull() ? Convert.ToInt64(reader["Id"]) : 0;
             cpf.OwnerName = reader["OwnerName"].IsNotNull() ? reader["OwnerName"].ToString() : string.Empty;
             cpf.Document = reader["Document"].IsNotNull() ? reader["Document"].ToString() : string.Empty;
+            cpf.IsBlocked = reader["IsBlocked"].IsNotNull() ? Convert.ToBoolean(reader["IsBlocked"]) : false;
 
             base.FillBaseModel(reader, cpf);
 

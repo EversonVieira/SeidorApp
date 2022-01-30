@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BaseCore.Extensions;
 
 namespace SeidorApp.Core.Business
 {
@@ -28,6 +29,10 @@ namespace SeidorApp.Core.Business
         public Response<long> Insert(Cpf cpf)
         {
             Response<long> response = new Response<long>();
+            if (cpf.IsNull())
+            {
+                throw new InvalidOperationException("Cpf não pode ser vazio"); 
+            }
 
             _cpfValidator.ValidateInsert(response, cpf);
             if (response.HasValidationMessages)
@@ -43,6 +48,10 @@ namespace SeidorApp.Core.Business
         public Response<bool> Update(Cpf cpf)
         {
             Response<bool> response = new Response<bool>();
+            if (cpf.IsNull())
+            {
+                throw new InvalidOperationException("Cpf não pode ser vazio");
+            }
 
             _cpfValidator.ValidateUpdate(response, cpf);
             if (response.HasValidationMessages)
@@ -54,9 +63,58 @@ namespace SeidorApp.Core.Business
             return response;
         }
 
+        public ListResponse<Cpf> FindByRequest(Request request)
+        {
+            if(request.IsNull())
+            {
+                throw new InvalidOperationException("Request não pode ser vazio");
+            }
+
+            return _cpfRepository.FindByRequest(request);
+        }
+        public ListResponse<Cpf> FindByDocument(string document)
+        {
+            ListResponse<Cpf> response = new ListResponse<Cpf>();
+            if (document.IsNull())
+            {
+                response.AddValidationMessage("002", "Informe um cpf para buscar.");
+                return response;
+            }
+
+            Request request = new Request();
+            request.filters.Add(new Filter
+            {
+                Target1 = nameof(Cpf.Document),
+                OperationType = FilterOperationType.Like,
+                Value1 = $"%{document}%"
+            });
+
+            response = _cpfRepository.FindByRequest(request);
+            return response;
+        }
+
+        public ListResponse<Cpf> FindByBlockStatus(bool isBlocked)
+        {
+            ListResponse<Cpf> response = new ListResponse<Cpf>();
+
+            Request request = new Request();
+            request.filters.Add(new Filter
+            {
+                Target1 = nameof(Cpf.IsBlocked),
+                OperationType = FilterOperationType.Equals,
+                Value1 = isBlocked
+            });
+
+            response = _cpfRepository.FindByRequest(request);
+            return response;
+        }
         public Response<bool> Delete(Cpf cpf)
         {
             Response<bool> response = new Response<bool>();
+            if (cpf.IsNull())
+            {
+                throw new InvalidOperationException("Cpf não pode ser vazio");
+            }
 
             _cpfValidator.ValidateDelete(response, cpf);
             if (response.HasValidationMessages)
