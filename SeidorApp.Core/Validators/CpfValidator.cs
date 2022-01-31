@@ -68,7 +68,7 @@ namespace SeidorApp.Core.Validators
 
 		}
 
-		private bool ValidateCpfMask(string cpf)
+		public bool ValidateCpfMask(string cpf)
         {
 			//000.000.000-00
 			return cpf.Trim().Length == 14 &&
@@ -76,7 +76,7 @@ namespace SeidorApp.Core.Validators
 				   cpf[7] == '.' &&
 				   cpf[11] == '-';
         }
-        private bool IsValidCpf(string cpf)
+        public bool IsValidCpf(string cpf)
         {
 			int[] multiplier1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 			int[] multiplier2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };

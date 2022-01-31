@@ -69,7 +69,6 @@ namespace SeidorApp.Core.Business
             {
                 throw new InvalidOperationException("Request não pode ser vazio");
             }
-
             return _cpfRepository.FindByRequest(request);
         }
         public ListResponse<Cpf> FindByDocument(string document)
@@ -80,6 +79,22 @@ namespace SeidorApp.Core.Business
                 response.AddValidationMessage("002", "Informe um cpf para buscar.");
                 return response;
             }
+
+            if (!_cpfValidator.ValidateCpfMask(document.Trim()))
+            {
+                response.AddValidationMessage("002", "O CPF informado não está no formato correto.");
+            }
+
+            if (!_cpfValidator.IsValidCpf(document.Trim()))
+            {
+                response.AddValidationMessage("002", "O CPF informado não é válido.");
+            }
+
+            if (response.HasValidationMessages)
+            {
+                return response;
+            }
+
 
             Request request = new Request();
             request.filters.Add(new Filter
@@ -107,7 +122,7 @@ namespace SeidorApp.Core.Business
 
             response = _cpfRepository.FindByRequest(request);
             return response;
-        }
+        } 
         public Response<bool> Delete(Cpf cpf)
         {
             Response<bool> response = new Response<bool>();
