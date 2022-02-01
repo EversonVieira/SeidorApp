@@ -41,13 +41,14 @@
   }
   
   &:hover{
-    background-color: #1570d1;
-    border-color: #1570d1;
+    opacity: 75% !important;
+    border-color: $primary-color !important;
+    background-color: $primary-color;
   }
   &:disabled{
     background-color: $primary-color;
     border-color: $primary-color;
-    opacity: 40%;
+    opacity: 40%; 
   }
 }
 
@@ -86,7 +87,7 @@
     
   }
 .content-wrapper{
-    width: calc(100vw - 140px);
+    width: calc(100vw - 240px);
     background-color: #fff;
     max-height: calc(100vh - 105px);
     min-height: calc(100vh - 105px);
@@ -164,4 +165,6 @@
 
   }
 
-  
+  h1{
+    color: rgb(42,46,52);
+  }

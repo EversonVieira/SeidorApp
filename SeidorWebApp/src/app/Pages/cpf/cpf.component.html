@@ -1,0 +1,34 @@
+<div class="content-wrapper">
+    <h1>Controle de CPFS</h1>
+    <div>
+        <div class="table-toolcontainer">
+            <button class="btn-primary">Adicionar</button>
+        </div>
+        <table>
+            <tr>
+                <th>Ação</th>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Documento</th>
+                <th>Status</th>
+                <th>Último uso</th>
+            </tr>
+            <tr *ngFor="let cpf of cpfList">
+                <td class="">
+                    <button class="btn-primary">Editar</button>
+                    <button class="btn-secondary ms-3">Remover</button>
+                </td>
+                <td>{{cpf.id}}</td>
+                <td>{{cpf.ownerName}}</td>
+                <td>{{cpf.document}}</td>
+                <td *ngIf="cpf.isBlocked">
+                    <span class="badge w-100 h-100" style="background-color: red;">Bloqueado</span>
+                </td>
+                <td *ngIf="!cpf.isBlocked">
+                    <span class="badge w-100 h-100" style="background-color: green;">Livre</span>
+                </td>
+                <td>{{cpf.lastUse | date}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

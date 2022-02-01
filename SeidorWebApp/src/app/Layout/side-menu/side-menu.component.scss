@@ -1,7 +1,35 @@
+@import '../../Shared/Variables.scss';
+
 div{
+    display: flex;
+    flex-direction: column;
     background-color: #333;
     height: 100%;
+    width: 200px;
     min-width: 100px;
     max-width: 200px;
     min-height: calc(100vh - 70px);
+    transition: width 0.1s ease-in;
+    padding: 10px;
+
+    &:hover{
+        width: 200px;
+    }
+}
+
+.btn-primary{
+    background-color: $primary-color;
+    width: 170px;
+    height: 40px;
+    margin-top: 15px;
+    &:hover{
+        opacity: 75% !important;
+        border-color: $primary-color !important;
+    }
+}
+
+.btn-primary-active{
+    background-color: #fff;
+    color: $primary-color;
+
 }

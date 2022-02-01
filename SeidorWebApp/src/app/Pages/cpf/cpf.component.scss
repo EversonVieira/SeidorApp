@@ -1,0 +1,14 @@
+@import '../../Shared/Variables.scss';
+
+.table-toolcontainer{
+    width: 100%;
+    height: 50px;
+    background-color: #eee;
+    border:1px solid #000;
+    border-top-left-radius: $dd-container-border-radius;
+    border-top-right-radius: $dd-container-border-radius;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 0;
+}

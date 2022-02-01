@@ -14,6 +14,8 @@ import { AppInjector } from './Shared/Injector/app-injector';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule, NgxUiLoaderRouterModule } from 'ngx-ui-loader';
+import { UserRegisterComponent } from './Pages/user-register/user-register.component';
+import { CpfComponent } from './Pages/cpf/cpf.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule, NgxUiLoaderRouterModule } fro
     SideMenuComponent,
     LayoutComponent,
     HomeComponent,
-    BaseSeidorComponent
+    BaseSeidorComponent,
+    UserRegisterComponent,
+    CpfComponent
   ],
   imports: [
     BrowserModule,

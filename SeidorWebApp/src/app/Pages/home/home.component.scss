@@ -1,0 +1,44 @@
+p{
+    color: rgb(255, 153, 0);
+    font-weight: bolder;
+    font-size: 60px;
+    padding: 10px;
+}
+h1{
+    color: rgb(0, 162, 255);
+}
+span{
+    color: rgb(255, 153, 0);
+    font-weight: bolder;
+    &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.fd-column{
+    flex-direction: column;
+}
+
+.cw-min-height{
+    min-height: 450px;
+}
+
+.alg-cnt{
+    align-self: center;
+}
+
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    button{
+        min-width: 80px;
+        min-height: 40px;
+    }
+}
