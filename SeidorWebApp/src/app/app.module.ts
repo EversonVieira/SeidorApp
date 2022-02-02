@@ -18,6 +18,7 @@ import { NgxUiLoaderHttpModule, NgxUiLoaderModule, NgxUiLoaderRouterModule } fro
 import { UserRegisterComponent } from './Pages/user-register/user-register.component';
 import { CpfComponent } from './Pages/cpf/cpf.component';
 import { UserUpdateComponent } from './Pages/user-update/user-update.component';
+import { LogComponent } from './Pages/log/log.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { UserUpdateComponent } from './Pages/user-update/user-update.component';
     BaseSeidorComponent,
     UserRegisterComponent,
     CpfComponent,
-    UserUpdateComponent
+    UserUpdateComponent,
+    LogComponent
   ],
   imports: [
     BrowserModule,

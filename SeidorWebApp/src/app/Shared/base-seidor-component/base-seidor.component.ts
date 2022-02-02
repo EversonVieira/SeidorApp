@@ -21,6 +21,7 @@ export class BaseSeidorComponent {
   protected toastrService: ToastrService;
   public hasUserLogged: boolean = false;
   public router: Router;
+  protected currentUserName:string = '';
   constructor() {
     const injector = AppInjector.getInjector()
 
@@ -28,6 +29,7 @@ export class BaseSeidorComponent {
     this.loginService = injector.get(LoginService);
     this.router = injector.get(Router);
     this.currentUser = CurrentUser.getUser();
+    this.currentUserName = CurrentUser.getUser().name;
     this.verifyCurrentUser();
   }
 

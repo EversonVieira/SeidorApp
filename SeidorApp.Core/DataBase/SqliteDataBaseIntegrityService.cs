@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using BaseCore.Extensions;
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -21,16 +22,18 @@ $@"CREATE TABLE IF NOT EXISTS Cpf(ID INTEGER PRIMARY KEY AUTOINCREMENT, OwnerNam
 $@"CREATE TABLE IF NOT EXISTS Session(ID INTEGER PRIMARY KEY AUTOINCREMENT, UserId INTEGER, KEY TEXT, LastUse TEXT);";
         public static void ValidateIntegrityAndBuildDB(string fileName, string connectionString)
         {
-            FileInfo file = new FileInfo(fileName);
-            bool justWait = false;
-            while (!file.Exists)
+            if (fileName.IsNotNullOrEmpty())
             {
-                if(!justWait)
-                    file.Create();
+                FileInfo file = new FileInfo(fileName);
+                bool justWait = false;
+                while (!file.Exists)
+                {
+                    if(!justWait)
+                        file.Create();
                 
-                justWait = true;
+                    justWait = true;
+                }
             }
-            
 
             using (SqliteConnection connection = new SqliteConnection(connectionString))
             {

@@ -3,7 +3,31 @@
     <div>
         <div class="table-toolcontainer">
             <button class="btn-primary" (click)="createModal(modal)">Adicionar</button>
-            <label class="ps-3">Quantidade de CPFS: <b>{{cpfCount}}</b></label>
+            <label class="ps-3 w-25">Qtd. de CPFS: <b>{{CpfCount}}</b></label>
+            <div class="d-flex ps-5 w-50 alg-cnt jus-cnt h-100 w-100">
+                <label class="pt-1" for="filter">Filtrar: </label>
+                <select class="ms-3 form-control w-25 h-100" name="filter" [(ngModel)]="selectedFilter">
+                    <option Value='0'>Sem Filtro</option>
+                    <option Value='1'>CPF</option>
+                    <option Value='2'>Status</option>
+                </select>
+                <ng-container *ngIf="selectedFilter > 0">
+                    <label class="pt-1 ms-3 me-3">Buscar por: </label>
+                    <ng-container *ngIf="selectedFilter == 1">
+                        <input type="text" class="form-control w-25" name="filterInput" [(ngModel)]="documentToFind"
+                            required>
+                    </ng-container>
+                    <ng-container *ngIf="selectedFilter == 2">
+                        <select class="form-control w-25 h-100" name="filter" [(ngModel)]="selectedStatus">
+                            <option Value='false'>Livre</option>
+                            <option Value='true'>Bloqueado</option>
+                        </select>
+                       
+                    </ng-container>
+                    <button class="btn btn-primary ms-3" (click)="findByFilter()">Pesquisar</button>
+                    <button class="btn btn-secondary ms-3" (click)="clearFilter()">Limpar Filtro</button>
+                </ng-container>
+            </div>
         </div>
         <table>
             <tr>
@@ -14,7 +38,7 @@
                 <th>Status</th>
                 <th>Última alteração</th>
             </tr>
-            <tr *ngFor="let item of cpfList">
+            <tr *ngFor="let item of CpfList">
                 <td class="">
                     <button class="btn-primary" (click)="editModal(item, modal)">Editar</button>
                     <button class="btn-secondary ms-2" (click)="openRemoveModal(item,remove)">Remover</button>
@@ -35,10 +59,10 @@
 </div>
 <ng-template #modal>
     <div class="modal-header">
-        <label *ngIf="cpf.id > 0">
+        <label *ngIf="Cpf.id > 0">
             Editar CPF
         </label>
-        <label *ngIf="cpf.id <= 0">
+        <label *ngIf="Cpf.id <= 0">
             Cadastrar CPF
         </label>
     </div>
@@ -46,16 +70,16 @@
         <form>
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control mt-1" name="name" [(ngModel)]="cpf.ownerName" required>
+                <input type="text" class="form-control mt-1" name="name" [(ngModel)]="Cpf.ownerName" required>
             </div>
             <div class="form-group pt-3">
-                <label for="cpf">CPF</label>
-                <input type="text" class="form-control mt-1" name="cpf" [disabled]="cpf.id > 0" [(ngModel)]="cpf.document"
-                    required>
+                <label for="Cpf">CPF</label>
+                <input type="text" class="form-control mt-1" name="Cpf" [disabled]="Cpf.id > 0"
+                    [(ngModel)]="Cpf.document" required>
             </div>
             <div class="form-group pt-3 pb-3">
                 <label class="form-check-label pe-2" for="isBlocked">Bloqueado</label>
-                <input class="form-check-input" type="checkbox" name="isBlocked" [(ngModel)]="cpf.isBlocked" required>
+                <input class="form-check-input" type="checkbox" name="isBlocked" [(ngModel)]="Cpf.isBlocked" required>
             </div>
         </form>
         <div class="modal-footer">
