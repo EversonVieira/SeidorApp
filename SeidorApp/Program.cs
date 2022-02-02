@@ -76,9 +76,6 @@ void AddCoreServices(IServiceCollection services, IConfiguration configuration)
     SqliteDataBaseIntegrityService.ValidateIntegrityAndBuildDB(configuration.GetValue<string>("SQLiteFilePath"), configuration.GetConnectionString("Default"));
     services.AddScoped<IDBConnectionFactory, SQLiteConnectionFactory>(x => new SQLiteConnectionFactory(configuration.GetConnectionString("Default")));
     services.AddScoped<IAuth, SessionBusiness>();
-
-    
-
 }
 
 void AddServices(IServiceCollection services, IConfiguration configuration)

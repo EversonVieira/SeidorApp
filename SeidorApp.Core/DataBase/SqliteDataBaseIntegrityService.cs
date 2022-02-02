@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace SeidorApp.Core.DataBase
 {
+    /// <summary>
+    /// Classe responsável por garantir que o banco existe e foi configurado corretamente.
+    /// </summary>
     public static class SqliteDataBaseIntegrityService
     {
 
@@ -20,6 +23,8 @@ $@"CREATE TABLE IF NOT EXISTS Cpf(ID INTEGER PRIMARY KEY AUTOINCREMENT, OwnerNam
 
         private const string CREATE_SESSION =
 $@"CREATE TABLE IF NOT EXISTS Session(ID INTEGER PRIMARY KEY AUTOINCREMENT, UserId INTEGER, KEY TEXT, LastUse TEXT);";
+
+
         public static void ValidateIntegrityAndBuildDB(string fileName, string connectionString)
         {
             if (fileName.IsNotNullOrEmpty())

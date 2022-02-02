@@ -51,6 +51,7 @@ namespace SeidorApp.Core.Adapt
                 throw new InvalidOperationException("Cpf não pode ser vazio");
             }
 
+            // Cria o filtro de Login para verificar se a senha antiga foi informada corretamente
             Request validationRequest = new Request();
             validationRequest.filters.AddRange(new List<Filter>()
             {
@@ -64,9 +65,10 @@ namespace SeidorApp.Core.Adapt
                 {
                     Target1 = nameof(DTO_UpdateUser.Password),
                     OperationType = FilterOperationType.Equals,
-                    Value1 = LoginUtility.EncryptPassword(user.Password),
+                    Value1 = LoginUtility.EncryptPassword(user.OldPassword),
                 },
             });
+
             ListResponse<User> userResponse = _userBusiness.FindUserByRequest(validationRequest);
             if (userResponse.HasAnyMessages)
             {
