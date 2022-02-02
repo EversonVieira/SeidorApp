@@ -143,6 +143,7 @@ $@"SELECT COUNT(Id) From Cpf ";
                     }
 
                     response.StatusCode = HttpStatusCode.OK;
+                    response.TotalItems = response.Data.Count;
                 }
             }
             catch (Exception ex)
