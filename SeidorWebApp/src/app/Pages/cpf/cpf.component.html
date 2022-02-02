@@ -14,15 +14,15 @@
                 <ng-container *ngIf="selectedFilter > 0">
                     <label class="pt-1 ms-3 me-3">Buscar por: </label>
                     <ng-container *ngIf="selectedFilter == 1">
-                        <input type="text" class="form-control w-25" name="filterInput" [(ngModel)]="documentToFind"
-                            required>
+                        <input type="text" class="form-control w-25" name="filterInput" [mask]="'000.000.000-00'"
+                            [dropSpecialCharacters]="false" [(ngModel)]="documentToFind" required>
                     </ng-container>
                     <ng-container *ngIf="selectedFilter == 2">
                         <select class="form-control w-25 h-100" name="filter" [(ngModel)]="selectedStatus">
                             <option Value='false'>Livre</option>
                             <option Value='true'>Bloqueado</option>
                         </select>
-                       
+
                     </ng-container>
                     <button class="btn btn-primary ms-3" (click)="findByFilter()">Pesquisar</button>
                     <button class="btn btn-secondary ms-3" (click)="clearFilter()">Limpar Filtro</button>
@@ -74,8 +74,8 @@
             </div>
             <div class="form-group pt-3">
                 <label for="Cpf">CPF</label>
-                <input type="text" class="form-control mt-1" [mask]="'000.000.000-00'" [dropSpecialCharacters]="false" name="Cpf" [disabled]="Cpf.id > 0"
-                    [(ngModel)]="Cpf.document" required>
+                <input type="text" class="form-control mt-1" [mask]="'000.000.000-00'" [dropSpecialCharacters]="false"
+                    name="Cpf" [disabled]="Cpf.id > 0" [(ngModel)]="Cpf.document" required>
             </div>
             <div class="form-group pt-3 pb-3">
                 <label class="form-check-label pe-2" for="isBlocked">Bloqueado</label>
