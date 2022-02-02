@@ -1,8 +1,9 @@
-<div class="content-wrapper">
-    <h1>Controle de CPFS</h1>
+<div class="content-wrapper-flat">
+    <h2>Controle de CPFS</h2>
     <div>
         <div class="table-toolcontainer">
             <button class="btn-primary" (click)="createModal(modal)">Adicionar</button>
+            <label>Quantidade de CPFS: {{cpfCount}}</label>
         </div>
         <table>
             <tr>
@@ -16,7 +17,7 @@
             <tr *ngFor="let item of cpfList">
                 <td class="">
                     <button class="btn-primary" (click)="editModal(item, modal)">Editar</button>
-                    <button class="btn-secondary ms-3" (click)="remove(item)">Remover</button>
+                    <button class="btn-secondary ms-2" (click)="openRemoveModal(item,remove)">Remover</button>
                 </td>
                 <td>{{item.id}}</td>
                 <td>{{item.ownerName}}</td>
@@ -45,19 +46,32 @@
         <form>
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" name="name"  [(ngModel)]="cpf.ownerName" required>
+                <input type="text" class="form-control" name="name" [(ngModel)]="cpf.ownerName" required>
             </div>
             <div class="form-group pt-3">
                 <label for="cpf">CPF</label>
-                <input type="text" class="form-control" name="cpf"  [(ngModel)]="cpf.document" required>
+                <input type="text" class="form-control" name="cpf" [disabled]="cpf.id > 0" [(ngModel)]="cpf.document"
+                    required>
             </div>
-            <div class="form-group pt-3">
+            <div class="form-group pt-3 pb-3">
                 <label class="form-check-label pe-2" for="isBlocked">Bloqueado</label>
-                <input class="form-check-input" type="checkbox" name="isBlocked"  [(ngModel)]="cpf.isBlocked" required>
+                <input class="form-check-input" type="checkbox" name="isBlocked" [(ngModel)]="cpf.isBlocked" required>
             </div>
         </form>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" (click)="save()">Salvar</button>
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #remove>
+    <div class="modal-header">
+        Confirmação
+    </div>
+    <div class="modal-body">
+        <label>Você tem certeza que quer remover o CPF?</label>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="removeCpf()">Remover</button>
             <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
         </div>
     </div>

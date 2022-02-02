@@ -62,6 +62,20 @@ namespace SeidorApp.Controllers
             }
         }
 
+        [HttpGet("findCountAll")]
+        public ActionResult<Response<int>> FindCountAll()
+        {
+            try
+            {
+                Request request = new Request();
+                return GetResponse(() => _cpfBusiness.FindCountByRequest(request));
+            }
+            catch (Exception ex)
+            {
+                return GetErrorResponse<int>(ex);
+            }
+        }
+
         [HttpGet("findByDocument")]
         public ActionResult<ListResponse<Cpf>> FindByDocument([FromQuery] string document)
         {

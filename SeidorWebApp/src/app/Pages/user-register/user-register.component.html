@@ -1,24 +1,29 @@
-<div class="content-wrapper">
-    <h1>Cadastre-se para utilizar a aplicação</h1>
-    <form>
-        <div class="form-group">
-            <label for="nome">Nome</label>
-            <input type="text" class="form-control" name="name"  [(ngModel)]="User.name" required>
+<div class="content-wrapper-flat d-flex">
+    <div class="container">
+        <div class="w-50 container fd-column content-wrapper cw-min-height">
+            <h2>Cadastre-se para utilizar a aplicação</h2>
+            <form>
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" name="name" [(ngModel)]="User.name" required>
+                </div>
+                <div class="form-group pt-3">
+                    <label for="email">E-mail</label>
+                    <input type="text" class="form-control" name="email" [(ngModel)]="User.email" required>
+                </div>
+                <div class="form-group pt-3">
+                    <label for="password">Senha</label>
+                    <input type="password" class="form-control" name="password" [(ngModel)]="User.password" required>
+                </div>
+                <div class="form-group pt-3">
+                    <label for="confirmPassword">Confirmar Senha</label>
+                    <input type="password" class="form-control" name="confirmPassword"
+                        [(ngModel)]="User.confirmPassword" required>
+                </div>
+            </form>
+            <div class="buttons">
+                <button class="btn-primary" (click)="save()">Cadastrar</button>
+            </div>
         </div>
-        <div class="form-group pt-3">
-            <label for="email">E-mail</label>
-            <input type="text" class="form-control" name="email"  [(ngModel)]="User.email" required>
-        </div>
-        <div class="form-group pt-3">
-            <label for="password">Senha</label>
-            <input type="password" class="form-control" name="password"  [(ngModel)]="User.password" required>
-        </div>
-        <div class="form-group pt-3">
-            <label for="confirmPassword">Confirmar Senha</label>
-            <input type="password" class="form-control" name="confirmPassword"  [(ngModel)]="User.confirmPassword" required>
-        </div>
-    </form>
-    <div class="buttons">
-        <button class="btn-primary" (click)="save()">Cadastrar</button>
     </div>
 </div>

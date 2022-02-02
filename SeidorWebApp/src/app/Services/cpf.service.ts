@@ -25,13 +25,16 @@ export class CPFService {
   }
 
   findByDocument(document: string) {
-    return this.httpService.get<ListResponse<CPF>>(`${this.baseUrl}/findByDocument?document=${document}}`);
+    return this.httpService.get<ListResponse<CPF>>(`${this.baseUrl}findByDocument?document=${document}}`);
   }
 
   findByBlockStatus(isBlocked: boolean) {
-    return this.httpService.get<ListResponse<CPF>>(`${this.baseUrl}/findByDocument?isBlocked=${isBlocked}}`);
+    return this.httpService.get<ListResponse<CPF>>(`${this.baseUrl}findByDocument?isBlocked=${isBlocked}}`);
   }
   findAll(){
     return this.httpService.get<ListResponse<CPF>>(`${this.baseUrl}`);
+  }
+  findContAll(){
+    return this.httpService.get<BaseResponse<number>>(`${this.baseUrl}findCountAll`);
   }
 }

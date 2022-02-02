@@ -29,7 +29,8 @@ $@"DELETE FROM Cpf Where Id = @Id ";
 
         private const string SELECT =
 $@"SELECT Id,OwnerName,Document,IsBlocked,{BaseModelColumns} From Cpf ";
-
+        private const string SELECT_COUNT =
+$@"SELECT COUNT(Id) From Cpf ";
 
         public CpfRepository(IDBConnectionFactory connectionFactory, ILogger<CpfRepository> logger) : base(connectionFactory, logger)
         {
@@ -151,7 +152,27 @@ $@"SELECT Id,OwnerName,Document,IsBlocked,{BaseModelColumns} From Cpf ";
 
             return response;
         }
+        public Response<int> FindCountByRequest(Request request)
+        {
+            Response<int> response = new Response<int>();
 
+            try
+            {
+                Dictionary<string, dynamic> parameters = base.RetrieveFilterParameters(request.filters);
+                string query = $"{SELECT_COUNT}{RetrieveFilterWhereClause(request.filters)}";
+                using (DbCommand cmd = base.CreateCommand(query, parameters))
+                {
+                    response.Data = ExecuteScalar(cmd);
+                    response.StatusCode = HttpStatusCode.OK;
+                }
+            }
+            catch (Exception ex)
+            {
+                base.HandleWithException(response, ex, _logger);
+            }
+
+            return response;
+        }
         private Cpf FillCpf(DbDataReader reader)
         {
             Cpf cpf = new Cpf();

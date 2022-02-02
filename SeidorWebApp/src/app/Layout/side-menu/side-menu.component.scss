@@ -3,7 +3,7 @@
 div{
     display: flex;
     flex-direction: column;
-    background-color: #333;
+    background-color: $primary-color;
     height: 100%;
     width: 200px;
     min-width: 100px;
@@ -18,18 +18,24 @@ div{
 }
 
 .btn-primary{
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    font-size: 16px;
+    color: #fff;
+    justify-content: flex-start;
     background-color: $primary-color;
     width: 170px;
     height: 40px;
     margin-top: 15px;
+    font-weight: 300;
     &:hover{
-        opacity: 75% !important;
         border-color: $primary-color !important;
     }
 }
 
 .btn-primary-active{
-    background-color: #fff;
-    color: $primary-color;
+    color: #FFF;
+    font-weight: 600;
 
 }

@@ -8,6 +8,7 @@
 
 * {
   font-family: "DM Sans";
+  font-size: 14px;
 }
 @font-face {
   font-family: DM Sans;
@@ -99,6 +100,20 @@
     box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.12), 0 -1px 3px 0 rgba(0, 0, 0, 0.12);
 }
 
+.content-wrapper-flat{
+    width: 100%;
+    background-color: #fff;
+    max-height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px);
+    overflow-y: scroll;
+    border: 1px #fff solid;
+    border-radius: 0;
+    padding: 10px;
+    margin: 0;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.12), 0 -1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+
 ::-webkit-scrollbar {
     width: 5px;
     max-height: calc(100% - 50px);
@@ -136,16 +151,18 @@
 
   table{
     width: 100%;
+    border: none;
   }
   th{
-    background-color: rgb(231, 239, 248);
-    border: 1px solid #666;
+    background-color: $primary-color;
     padding:10px;
   }
   td{
     background-color: rgb(255, 255, 255);
-    border: 1px solid #666;
     padding:10px;
+  }
+  tr{
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.12), 0 -1px 3px 0 rgba(0, 0, 0, 0.12);
   }
   .modal-content{
     border-radius: 8px;
@@ -165,8 +182,27 @@
 
   }
 
-h1{
+h2{
     color: rgb(42,46,52);
     font-weight: bolder;
     padding: 10px;
+}
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1110px;
+}
+
+.fd-column{
+  flex-direction: column;
+}
+
+.cw-min-height{
+  min-height: 450px;
+}
+
+.alg-cnt{
+  align-self: center;
 }

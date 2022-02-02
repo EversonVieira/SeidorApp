@@ -13,6 +13,7 @@ export class CpfComponent extends BaseSeidorComponent implements OnInit {
 
   public cpf: CPF = new CPF();
   public cpfList: CPF[] = [];
+  public cpfCount:number = 0;
 
   constructor(private modalService: NgbModal, private cpfService: CPFService) {
     super();
@@ -26,6 +27,17 @@ export class CpfComponent extends BaseSeidorComponent implements OnInit {
     this.cpfService.findAll().subscribe(response => {
       if(response.hasResponseData){
         this.cpfList = <CPF[]> response.data;
+      }
+      this.ShowNotifications(response);
+    });
+    
+    this.findCountAll();
+  }
+
+  findCountAll(){
+    this.cpfService.findContAll().subscribe(response => {
+      if(response.hasResponseData){
+        this.cpfCount = <number> response.data;
       }
       this.ShowNotifications(response);
     });
@@ -64,8 +76,12 @@ export class CpfComponent extends BaseSeidorComponent implements OnInit {
     }
   }
 
-  remove(cpf:CPF){
-    this.cpfService.delete(cpf).subscribe(response => {
+  openRemoveModal(cpf:CPF, content:any){
+    this.cpf = Object.assign(cpf);
+    this.modalService.open(content);
+  }
+  removeCpf(){
+    this.cpfService.delete(this.cpf).subscribe(response => {
       this.ShowNotifications(response);
       if(response.isValid){
         this.findAll();

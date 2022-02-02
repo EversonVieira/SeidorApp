@@ -3,7 +3,7 @@
 p{
     color: $primary-color;
     font-weight: bolder;
-    font-size: 60px;
+    font-size: 40px;
     padding: 10px;
 }
 h1{
@@ -17,23 +17,7 @@ span{
         cursor: pointer;
     }
 }
-.container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-.fd-column{
-    flex-direction: column;
-}
 
-.cw-min-height{
-    min-height: 450px;
-}
-
-.alg-cnt{
-    align-self: center;
-}
 
 .buttons{
     width: 100%;
@@ -43,4 +27,11 @@ span{
         min-width: 80px;
         min-height: 40px;
     }
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

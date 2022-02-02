@@ -10,8 +10,15 @@ form{
     flex-direction: column;
 }
 
+h1{
+    color: rgb(42,46,52);
+    font-weight: bolder;
+    padding: 10px;
+}
 
-
+.container{
+    align-items: flex-start;
+}
 .buttons{
     display: flex;
     padding: 10px;

@@ -65,6 +65,31 @@ namespace SeidorApp.Core.Validators
 				response.AddValidationMessage("002", "O CPF informado não é válido.");
 				if (!cumulativeMessages) return;
 			}
+			Request existsRequest = new Request();
+			existsRequest.filters.AddRange(new List<Filter>()
+			{
+				new Filter()
+				{
+					Target1 = nameof(Cpf.Document),
+					OperationType = FilterOperationType.Equals,
+					Value1 = model.Document,
+					AggregateType = FilterAggregateType.AND
+				}
+			});
+
+			ListResponse<Cpf> listResponse = _cpfRepository.FindByRequest(existsRequest);
+            if (listResponse.InError)
+            {
+				response.Merge(listResponse);
+				return;
+            }
+
+			if(listResponse.Data.Any() && model.Id != listResponse.Data.First().Id)
+            {
+				response.AddValidationMessage("002", "O CPF informado já foi cadastrado.");
+				if (!cumulativeMessages) return;
+			}
+
 
 		}
 

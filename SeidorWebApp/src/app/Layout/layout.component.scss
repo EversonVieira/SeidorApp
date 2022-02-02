@@ -10,8 +10,7 @@
 }
 
 .data-container{
-    background-color: rgb(176, 206, 250);
-    padding: 10px 0 10px 10px;
+    background-color: $primary-color;
     height: calc(100vh - 70px);
     width: 100%;
 }

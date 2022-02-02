@@ -71,6 +71,15 @@ namespace SeidorApp.Core.Business
             }
             return _cpfRepository.FindByRequest(request);
         }
+
+        public Response<int> FindCountByRequest(Request request)
+        {
+            if (request.IsNull())
+            {
+                throw new InvalidOperationException("Request não pode ser vazio");
+            }
+            return _cpfRepository.FindCountByRequest(request);
+        }
         public ListResponse<Cpf> FindByDocument(string document)
         {
             ListResponse<Cpf> response = new ListResponse<Cpf>();
