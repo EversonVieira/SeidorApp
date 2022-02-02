@@ -3,7 +3,7 @@
     <div>
         <div class="table-toolcontainer">
             <button class="btn-primary" (click)="createModal(modal)">Adicionar</button>
-            <label>Quantidade de CPFS: {{cpfCount}}</label>
+            <label class="ps-3">Quantidade de CPFS: <b>{{cpfCount}}</b></label>
         </div>
         <table>
             <tr>
@@ -46,11 +46,11 @@
         <form>
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" name="name" [(ngModel)]="cpf.ownerName" required>
+                <input type="text" class="form-control mt-1" name="name" [(ngModel)]="cpf.ownerName" required>
             </div>
             <div class="form-group pt-3">
                 <label for="cpf">CPF</label>
-                <input type="text" class="form-control" name="cpf" [disabled]="cpf.id > 0" [(ngModel)]="cpf.document"
+                <input type="text" class="form-control mt-1" name="cpf" [disabled]="cpf.id > 0" [(ngModel)]="cpf.document"
                     required>
             </div>
             <div class="form-group pt-3 pb-3">
@@ -69,7 +69,7 @@
         Confirmação
     </div>
     <div class="modal-body">
-        <label>Você tem certeza que quer remover o CPF?</label>
+        <label class="pb-1 mb-2">Você tem certeza que deseja remover o CPF?</label>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" (click)="removeCpf()">Remover</button>
             <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>

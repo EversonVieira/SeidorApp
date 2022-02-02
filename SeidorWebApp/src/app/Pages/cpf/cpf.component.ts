@@ -23,15 +23,19 @@ export class CpfComponent extends BaseSeidorComponent implements OnInit {
     this.findAll();
   }
 
+  
+
   findAll(){
     this.cpfService.findAll().subscribe(response => {
       if(response.hasResponseData){
         this.cpfList = <CPF[]> response.data;
       }
+      if(!response.hasAnyMessages){
+        this.findCountAll();  
+      }
       this.ShowNotifications(response);
     });
     
-    this.findCountAll();
   }
 
   findCountAll(){

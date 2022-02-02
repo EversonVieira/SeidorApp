@@ -15,6 +15,7 @@ import { CurrentUser } from './current-user';
 })
 export class BaseSeidorComponent {
 
+  private static doingVerification:boolean = false;
   private currentUser: User;
   protected loginService: LoginService;
   protected toastrService: ToastrService;
@@ -27,22 +28,26 @@ export class BaseSeidorComponent {
     this.loginService = injector.get(LoginService);
     this.router = injector.get(Router);
     this.currentUser = CurrentUser.getUser();
-    setInterval(() => {
-      this.verifyCurrentUser()
-    }, 1000);
-    this.verifyCurrentUser()
+    this.verifyCurrentUser();
   }
 
   async verifyCurrentUser() {
+    if(BaseSeidorComponent.doingVerification) return;
+    
+    BaseSeidorComponent.doingVerification = true;
     await this.validateUser();
 
     this.hasUserLogged = this.currentUser.id > 0;
     if (!this.hasUserLogged) {
-      if (!this.router.url.includes('user/register') && !this.router.url.includes('home')) {
+      console.log(this.router.url);
+      if (!this.router.url.includes('user/register') && !this.router.url.includes('home') && this.router.url != '/') {
         this.toastrService.warning("Faça login para acessar essa página");
         this.router.navigateByUrl("''");
       }
     }
+
+    BaseSeidorComponent.doingVerification = false;
+
   }
   async validateUser() {
     if (localStorage.getItem("Session")) {
