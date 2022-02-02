@@ -19,6 +19,7 @@ import { UserRegisterComponent } from './Pages/user-register/user-register.compo
 import { CpfComponent } from './Pages/cpf/cpf.component';
 import { UserUpdateComponent } from './Pages/user-update/user-update.component';
 import { LogComponent } from './Pages/logPage/log.component';
+import { NgxMaskModule} from 'ngx-mask'
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { LogComponent } from './Pages/logPage/log.component';
     NgxUiLoaderModule,
     NgxUiLoaderRouterModule,
     NgxUiLoaderHttpModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
