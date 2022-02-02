@@ -100,7 +100,7 @@ namespace SeidorApp.Core.Validators
             });
 
             ListResponse<User> userResponse = _userRepository.FindByRequest(request);
-            if(userResponse.Data.IsNotNull() && userResponse.Data.Any() && (!verifyId || userResponse.Data.First().Id == model.Id ))
+            if(userResponse.Data.IsNotNull() && userResponse.Data.Any() && (!verifyId || userResponse.Data.First().Id != model.Id ))
             {
                 response.AddValidationMessage("003", "E-mail já está em uso por outro usuário.");
             }

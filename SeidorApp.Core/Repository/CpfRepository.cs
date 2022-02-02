@@ -22,7 +22,7 @@ namespace SeidorApp.Core.Repository
 $@"INSERT INTO Cpf(OwnerName,Document,IsBlocked,{BaseModelColumns}) VALUES(@OwnerName,@Document,@IsBlocked,{BaseModelInsertsParameters}); SELECT last_insert_rowid()";
 
         private const string UPDATE =
-$@"UPDATE Cpf SET OwnerName = @OwnerName, Document = @Document, {BaseModelUpdate} Where Id = @Id";
+$@"UPDATE Cpf SET OwnerName = @OwnerName, Document = @Document,IsBlocked = @IsBlocked, {BaseModelUpdate} Where Id = @Id";
 
         private const string DELETE =
 $@"DELETE FROM Cpf Where Id = @Id ";
@@ -76,6 +76,8 @@ $@"SELECT Id,OwnerName,Document,IsBlocked,{BaseModelColumns} From Cpf ";
                 parameters.Add($"@{nameof(Cpf.Id)}", cpf.Id);
                 parameters.Add($"@{nameof(Cpf.OwnerName)}", cpf.OwnerName);
                 parameters.Add($"@{nameof(Cpf.Document)}", cpf.Document);
+                parameters.Add($"@{nameof(Cpf.IsBlocked)}", cpf.IsBlocked);
+
                 base.AddBaseModelParameters(parameters, cpf);
 
                 using (DbCommand cmd = base.CreateCommand(UPDATE, parameters))

@@ -6,7 +6,4 @@ export class User extends BaseModel {
     password:string = "";
 }
 
-export class DTO_RegisterUser extends User{
-    confirmPassword:string = "";
-}
 

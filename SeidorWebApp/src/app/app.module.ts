@@ -1,5 +1,6 @@
 import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxUiLoaderHttpModule, NgxUiLoaderModule, NgxUiLoaderRouterModule } from 'ngx-ui-loader';
 import { UserRegisterComponent } from './Pages/user-register/user-register.component';
 import { CpfComponent } from './Pages/cpf/cpf.component';
+import { UserUpdateComponent } from './Pages/user-update/user-update.component';
 
 @NgModule({
   declarations: [
@@ -26,10 +28,12 @@ import { CpfComponent } from './Pages/cpf/cpf.component';
     HomeComponent,
     BaseSeidorComponent,
     UserRegisterComponent,
-    CpfComponent
+    CpfComponent,
+    UserUpdateComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     CommonModule,
     FormsModule,
     AppRoutingModule,

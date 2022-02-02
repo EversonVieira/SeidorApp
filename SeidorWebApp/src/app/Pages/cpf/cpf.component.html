@@ -2,7 +2,7 @@
     <h1>Controle de CPFS</h1>
     <div>
         <div class="table-toolcontainer">
-            <button class="btn-primary">Adicionar</button>
+            <button class="btn-primary" (click)="createModal(modal)">Adicionar</button>
         </div>
         <table>
             <tr>
@@ -11,24 +11,54 @@
                 <th>Nome</th>
                 <th>Documento</th>
                 <th>Status</th>
-                <th>Último uso</th>
+                <th>Última alteração</th>
             </tr>
-            <tr *ngFor="let cpf of cpfList">
+            <tr *ngFor="let item of cpfList">
                 <td class="">
-                    <button class="btn-primary">Editar</button>
-                    <button class="btn-secondary ms-3">Remover</button>
+                    <button class="btn-primary" (click)="editModal(item, modal)">Editar</button>
+                    <button class="btn-secondary ms-3" (click)="remove(item)">Remover</button>
                 </td>
-                <td>{{cpf.id}}</td>
-                <td>{{cpf.ownerName}}</td>
-                <td>{{cpf.document}}</td>
-                <td *ngIf="cpf.isBlocked">
+                <td>{{item.id}}</td>
+                <td>{{item.ownerName}}</td>
+                <td>{{item.document}}</td>
+                <td *ngIf="item.isBlocked">
                     <span class="badge w-100 h-100" style="background-color: red;">Bloqueado</span>
                 </td>
-                <td *ngIf="!cpf.isBlocked">
+                <td *ngIf="!item.isBlocked">
                     <span class="badge w-100 h-100" style="background-color: green;">Livre</span>
                 </td>
-                <td>{{cpf.lastUse | date}}</td>
+                <td>{{item.modifiedOn | date:'short'}}</td>
             </tr>
         </table>
     </div>
 </div>
+<ng-template #modal>
+    <div class="modal-header">
+        <label *ngIf="cpf.id > 0">
+            Editar CPF
+        </label>
+        <label *ngIf="cpf.id <= 0">
+            Cadastrar CPF
+        </label>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" name="name"  [(ngModel)]="cpf.ownerName" required>
+            </div>
+            <div class="form-group pt-3">
+                <label for="cpf">CPF</label>
+                <input type="text" class="form-control" name="cpf"  [(ngModel)]="cpf.document" required>
+            </div>
+            <div class="form-group pt-3">
+                <label class="form-check-label pe-2" for="isBlocked">Bloqueado</label>
+                <input class="form-check-input" type="checkbox" name="isBlocked"  [(ngModel)]="cpf.isBlocked" required>
+            </div>
+        </form>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="save()">Salvar</button>
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+        </div>
+    </div>
+</ng-template>

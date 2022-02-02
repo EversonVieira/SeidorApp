@@ -10,13 +10,13 @@ export class HttpService {
   private baseUrl: string = "";
 
   constructor(private httpClient: HttpClient) {
-    this.baseUrl = "localhost:";
+    this.baseUrl = "https://localhost:7213/api/";
   }
 
   getHeaders(){
       let headers:HttpHeaders = new HttpHeaders();
 
-      headers = headers.set('Access-Control-Allow-Origin', environment.production ? 'http://munisaude.eastus.cloudapp.azure.com':'*');
+      headers = headers.set('Access-Control-Allow-Origin', '*');
       headers = headers.set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT');
       headers = headers.set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
       headers = headers.set('Content-Type', 'application/json');

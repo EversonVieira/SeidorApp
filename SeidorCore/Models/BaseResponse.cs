@@ -10,7 +10,7 @@ namespace BaseCore.Models
     public abstract class BaseResponse
     {
         public HttpStatusCode StatusCode { get; set; }
-        public List<Message> Messages { get; set; } 
+        public List<Message> Messages { get; set; } = new List<Message>(); 
         public bool ShowMessages { get; set; } 
         public bool IsValid => !Messages.Exists(x => x.MessageType > MessageType.Success);
         public bool InError => Messages.Exists(x => x.MessageType >= MessageType.Error);

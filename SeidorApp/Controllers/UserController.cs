@@ -40,7 +40,7 @@ namespace SeidorApp.Controllers
         }
 
         [HttpPut]
-        public ActionResult<Response<bool>> Update(DTO_RegisterUser user)
+        public ActionResult<Response<bool>> Update(DTO_UpdateUser user)
         {
             try
             {

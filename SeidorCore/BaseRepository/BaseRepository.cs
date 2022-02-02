@@ -44,7 +44,7 @@ namespace BaseCore.BaseRepository
         public string RetrieveFilterWhereClause(List<Filter> filters)
         {
             StringBuilder whereClause = new();
-            if (filters == null) return whereClause.ToString();
+            if (filters == null || !filters.Any()) return whereClause.ToString();
 
             whereClause.AppendLine(" WHERE ");
             List<Filter> sortedFilters = filters.OrderBy(x => x.FilterGroup).ToList();

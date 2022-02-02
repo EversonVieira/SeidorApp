@@ -59,6 +59,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseCors();
+
 app.Run();
 
 
@@ -74,6 +76,8 @@ void AddCoreServices(IServiceCollection services, IConfiguration configuration)
     SqliteDataBaseIntegrityService.ValidateIntegrityAndBuildDB(configuration.GetValue<string>("SQLiteFilePath"), configuration.GetConnectionString("Default"));
     services.AddScoped<IDBConnectionFactory, SQLiteConnectionFactory>(x => new SQLiteConnectionFactory(configuration.GetConnectionString("Default")));
     services.AddScoped<IAuth, SessionBusiness>();
+
+    
 
 }
 

@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { CpfComponent } from './Pages/cpf/cpf.component';
 import { HomeComponent } from './Pages/home/home.component';
 import { UserRegisterComponent } from './Pages/user-register/user-register.component';
+import { UserUpdateComponent } from './Pages/user-update/user-update.component';
 
 const routes: Routes = [
   {path:"home", component: HomeComponent, pathMatch: 'full' },
   {path:'user/register', component: UserRegisterComponent},
+  {path:'user/update', component: UserUpdateComponent},
   {path:"data", component: CpfComponent},
   {path:"**", redirectTo: 'home', pathMatch: 'full'},
 

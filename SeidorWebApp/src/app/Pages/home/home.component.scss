@@ -1,14 +1,16 @@
+@import '../../Shared/Variables.scss';
+
 p{
-    color: rgb(255, 153, 0);
+    color: $primary-color;
     font-weight: bolder;
     font-size: 60px;
     padding: 10px;
 }
 h1{
-    color: rgb(0, 162, 255);
+    color: $secondary-color;
 }
 span{
-    color: rgb(255, 153, 0);
+    color: $primary-color;
     font-weight: bolder;
     &:hover{
         text-decoration: underline;

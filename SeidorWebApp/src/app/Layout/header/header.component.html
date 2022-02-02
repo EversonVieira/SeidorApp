@@ -1,3 +1,15 @@
-<div>
+<div class="header w-100">
     <label>Seidor</label>
+    <div class="container pe-3">
+        <div class="container" *ngIf="!!CurrentUser && CurrentUser.id > 0">
+            <label>{{CurrentUser.name}}</label>
+            <div class="options">
+                <label class="pe-3" (click)="manageAccount()">Gerenciar a conta</label>
+                <label (click)="doLogout()">sair</label>
+            </div>
+        </div>
+        <div class="container" *ngIf="!CurrentUser">
+            <label>Sem usuário conectado</label>
+        </div>
+    </div>
 </div>

@@ -48,6 +48,20 @@ namespace SeidorApp.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult<ListResponse<Cpf>> FindAll()
+        {
+            try
+            {
+                Request request = new Request();
+                return GetListResponse(() => _cpfBusiness.FindByRequest(request));
+            }
+            catch (Exception ex)
+            {
+                return GetErrorListResponse<Cpf>(ex);
+            }
+        }
+
         [HttpGet("findByDocument")]
         public ActionResult<ListResponse<Cpf>> FindByDocument([FromQuery] string document)
         {
@@ -71,6 +85,24 @@ namespace SeidorApp.Controllers
             catch (Exception ex)
             {
                 return GetErrorListResponse<Cpf>(ex);
+            }
+        }
+
+        [HttpDelete()]
+        public ActionResult<Response<bool>> Delete([FromQuery] long cpfId)
+        {
+            try
+            {
+                Cpf cpf = new Cpf()
+                {
+                    Id = cpfId
+                };
+
+                return GetResponse(() => _cpfBusiness.Delete(cpf));
+            }
+            catch (Exception ex)
+            {
+                return GetErrorResponse<bool>(ex);
             }
         }
     }

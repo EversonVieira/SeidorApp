@@ -11,5 +11,7 @@ namespace BaseCore.Models
         public int TotalItemsOnPage { get; set; }
         public int PageIndex { get; set; }
         public int TotalItems { get; set; }
+
+
     }
 }

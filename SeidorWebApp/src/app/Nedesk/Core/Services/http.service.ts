@@ -11,7 +11,7 @@ export class HttpService {
   private baseUrl: string = "";
 
   constructor(private httpClient: HttpClient) {
-    this.baseUrl = httpConfiguration.enviroment.baseUrl;
+    this.baseUrl = 'https://localhost:7213/api/';
   }
 
   getHeaders(){

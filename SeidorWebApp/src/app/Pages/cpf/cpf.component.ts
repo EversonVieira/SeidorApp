@@ -1,26 +1,76 @@
 import { Component, OnInit } from '@angular/core';
 import { CPF } from 'src/app/Models/cpf';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CPFService } from 'src/app/Services/cpf.service';
+import { BaseSeidorComponent } from 'src/app/Shared/base-seidor-component/base-seidor.component';
+import { basename } from 'path';
 @Component({
   selector: 'app-cpf',
   templateUrl: './cpf.component.html',
   styleUrls: ['./cpf.component.scss']
 })
-export class CpfComponent implements OnInit {
+export class CpfComponent extends BaseSeidorComponent implements OnInit {
 
-  cpf: CPF = new CPF();
-  cpfList: CPF[] = [];
-  constructor() { }
+  public cpf: CPF = new CPF();
+  public cpfList: CPF[] = [];
 
-  ngOnInit(): void {
-    for (let i = 0; i <= 5; i++) {
-        const cpf: CPF = new CPF();
-        cpf.id = i,
-        cpf.ownerName = 'Everson de Souza Vieira',
-        cpf.document = '112.123.123-33',
-        cpf.isBlocked = i % 2 == 0,
-        this.cpfList.push(cpf);
-    } 
+  constructor(private modalService: NgbModal, private cpfService: CPFService) {
+    super();
   }
 
+  ngOnInit(): void {
+    this.findAll();
+  }
+
+  findAll(){
+    this.cpfService.findAll().subscribe(response => {
+      if(response.hasResponseData){
+        this.cpfList = <CPF[]> response.data;
+      }
+      this.ShowNotifications(response);
+    });
+  }
+  createModal(content: any) {
+    this.cpf = new CPF();
+    this.modalService.open(content);
+  }
+
+  editModal(cpf: CPF, content: any) {
+    Object.assign(this.cpf, cpf);
+    this.modalService.open(content);
+  }
+  closeModal() {
+    this.modalService.dismissAll();
+  }
+  save() {
+    if (this.cpf.id <= 0) {
+      this.cpfService.insert(this.cpf).subscribe(response => {
+        this.ShowNotifications(response);
+        if(response.isValid){
+          this.findAll();
+          this.modalService.dismissAll();
+        }
+      });
+    }
+    else {
+      this.cpf.modifiedOn = new Date(new Date().toUTCString());
+      this.cpfService.update(this.cpf).subscribe(response => {
+        this.ShowNotifications(response);
+        if(response.isValid){
+          this.findAll();
+          this.modalService.dismissAll();
+        }
+      });
+    }
+  }
+
+  remove(cpf:CPF){
+    this.cpfService.delete(cpf).subscribe(response => {
+      this.ShowNotifications(response);
+      if(response.isValid){
+        this.findAll();
+        this.modalService.dismissAll();
+      }
+    });
+  }
 }

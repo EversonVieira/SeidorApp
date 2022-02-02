@@ -30,7 +30,7 @@ namespace BaseCore.ApiControllers
                 if (authResponse.HasAnyMessages)
                 {
                     response.Merge(authResponse);
-                    return response;
+                    return Ok(response);
                 }
                 if (authResponse.Data.IsNull() || authResponse.Data.Id == 0) return response;
             }
@@ -58,7 +58,7 @@ namespace BaseCore.ApiControllers
                 if (authResponse.HasAnyMessages)
                 {
                     response.Merge(authResponse);
-                    return response;
+                    return Ok(response);
                 }
                 if (authResponse.Data.IsNull() || authResponse.Data.Id == 0) return response;
             }

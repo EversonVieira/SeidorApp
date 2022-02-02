@@ -15,8 +15,9 @@ export interface IBaseResponse {
 }
 
 export class BaseResponse<T>{
-    responseData?: T = undefined;
+    data?: T = undefined;
     messages:Message[] = [];
+    isValid:boolean = !this.messages.find(x => x.messageType > MessageTypeEnum.Sucess);
     inError: boolean = !!this.messages.find(x => x.messageType >= 4);
     hasAnyMessages: boolean = this.messages.length > 0;
     hasAnyCautionMessages: boolean = !!this.messages.find(x => x.code == MessageTypeEnum.Caution);
@@ -24,7 +25,7 @@ export class BaseResponse<T>{
     hasWarningMessages: boolean = !!this.messages.find(x => x.code == MessageTypeEnum.Warning);
     hasErrorMessages: boolean = !!this.messages.find(x => x.code == MessageTypeEnum.Error);
     hasExceptionMessages: boolean = !!this.messages.find(x => x.code == MessageTypeEnum.Exception);
-    hasFatalErrorMessages: boolean = !!this.messages.find(x => x.code == MessageTypeEnum.FatalError);
-    hasResponseData: boolean = !!this.responseData;
+    hasFatalErrorMessages: boolean = !!this.messages.find(x => x.code == MessageTypeEnum.FatalErrorException);
+    hasResponseData: boolean = !!this.data;
 
 }
