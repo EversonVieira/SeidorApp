@@ -1,0 +1,24 @@
+<div class="content-wrapper-flat">
+    <h2>Log de CPFS</h2>
+    <div>
+        <label class="pt-3 pb-3">Qtd. de Regsitros: <b>{{cpfCount}}</b></label>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Documento</th>
+                <th>Criado por</th>
+                <th>Criado em</th>
+                <th>Alterado por</th>
+                <th>Alterado em</th>
+            </tr>
+            <tr *ngFor="let item of cpfList">
+                <td>{{item.id}}</td>
+                <td>{{item.document}}</td>
+                <td>{{item.createdBy}}</td>
+                <td>{{item.createdOn | date:'short'}}</td>
+                <td>{{item.modifiedBy}}</td>
+                <td>{{item.modifiedOn | date:'short'}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
